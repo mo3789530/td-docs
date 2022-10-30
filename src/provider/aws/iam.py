@@ -16,6 +16,7 @@ class Iam:
         dependencies = "dependencies"
 
         return {
+            "type": iam_type,
             schema_version: json.get(schema_version),
             attributes_arn: json.get(attributes).get(attributes_arn),
             attributes_assume_role_policy: json.get(attributes).get(attributes_assume_role_policy),
@@ -36,13 +37,14 @@ class Iam:
         dependencies = "dependencies"
 
         return {
+            "type": iam_type,
             schema_version: json.get(schema_version),
             attributes_arn: json.get(attributes).get(attributes_arn),
             attributes_assume_role_policy: json.get(attributes).get(attributes_assume_role_policy),
-            attributes_description: json.get(attributes).get(attributes_description),
-            attributes_tags: json.get(attributes).get(attributes_tags),
-            attributes_policy: json.get(attributes).get(attributes_policy),
-            dependencies: json.get(dependencies)
+            attributes_description:        json.get(attributes).get(attributes_description),
+            attributes_tags:               json.get(attributes).get(attributes_tags),
+            attributes_policy:             json.get(attributes).get(attributes_policy),
+            dependencies:                  json.get(dependencies)
         }
 
     # aws_iam_instance_profile
@@ -51,12 +53,31 @@ class Iam:
 
     # aws_iam_policy_document
     def policy_document_parser(self, json: dict, iam_type: str) -> dict:
-        pass
+        schema_version = "schema_version"
+        attributes = "attributes"
+        attributes_id = "id"
+        attributes_json = "json"
+        attributes_state = "statement"
+        attributes_tags = "tags"
+        attributes_condition = "condition"
+        attributes_principals = "principals"
+        resources = "resources"
+
+        return {
+            "type":                iam_type,
+            attributes_id:         json.get(attributes).get(attributes_id),
+            attributes_json:       json.get(attributes).get(attributes_json),
+            attributes_state:      json.get(attributes).get(attributes_state),
+            attributes_condition:  json.get(attributes).get(attributes_condition),
+            attributes_tags:       json.get(attributes).get(attributes_tags),
+            attributes_principals: json.get(attributes).get(attributes_principals),
+            resources:             json.get(resources)
+        }
 
     # unknow type
     def unknown_type(self, json: dict, iam_type: str):
-        print("{iam_type} is not defined")
-        raise Exception("")
+        print(f"{iam_type} is not defined")
+        raise Exception(f"{iam_type} is not defined in iam type")
 
     switcher = {
         "aws_iam_instance_profile": instance_profile_parser,
@@ -66,4 +87,4 @@ class Iam:
     }
 
     def parse(self, json: dict, iam_type: str):
-        return self.switcher.get(iam_type, self.unknown_type)(json=json, iam_type=iam_type)
+        return self.switcher.get(iam_type, self.unknown_type)(self=self, json=json, iam_type=iam_type)

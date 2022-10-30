@@ -11,5 +11,6 @@
     "python.testing.unittestEnabled": true,
     "python.analysis.extraPaths": [
         "./src/provider/terraform"
-    ]
+    ],
+    "editor.formatOnSave": true
 }

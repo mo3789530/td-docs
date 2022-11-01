@@ -89,3 +89,47 @@ class TestAwsIam(unittest.TestCase):
         self.assertEqual(res.get(
             "name"), "octopusx-grid-5-elb-sl-role-creation20201111113220197000000001")
         self.assertEqual(res.get("none"), None)
+
+    def test_plicy_document_parser(self):
+        json_str = '''
+        {
+                    "schema_version": 0,
+                    "attributes": {
+                        "id": "3778018924",
+                        "json": { "Version": "2012-10-17", "Statement": [   {     "Sid": "EKSWorkerAssumeRole",     "Effect": "Allow",     "Action": "sts:AssumeRole",     "Principal": {       "Service": "ec2.amazonaws.com"     }   } ]},
+                        "override_json": null,
+                        "policy_id": null,
+                        "source_json": null,
+                        "statement": [
+                            {
+                                "actions": [
+                                    "sts:AssumeRole"
+                                ],
+                                "condition": [],
+                                "effect": "Allow",
+                                "not_actions": [],
+                                "not_principals": [],
+                                "not_resources": [],
+                                "principals": [
+                                    {
+                                        "identifiers": [
+                                            "ec2.amazonaws.com"
+                                        ],
+                                        "type": "Service"
+                                    }
+                                ],
+                                "resources": [],
+                                "sid": "EKSWorkerAssumeRole"
+                            }
+                        ],
+                        "version": "2012-10-17"
+                    }
+        }
+        '''
+        data = json.loads(json_str)
+        iam = src.provider.aws.iam.Iam()
+
+        res = iam.parse(json=data, iam_type="aws_iam_policy_document")
+        self.assertEqual(res.get("schema_version"), 0)
+        self.assertEqual(res.get("statement"), data["attributes"]["statement"])
+        self.assertEqual(res.get("none"), None)

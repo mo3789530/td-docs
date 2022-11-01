@@ -67,6 +67,7 @@ class Iam:
 
         return {
             "type":                iam_type,
+            schema_version:        json.get(schema_version),
             attributes_id:         json.get(attributes, {}).get(attributes_id),
             attributes_json:       json.get(attributes, {}).get(attributes_json),
             attributes_state:      json.get(attributes, {}).get(attributes_state),

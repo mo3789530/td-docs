@@ -2,6 +2,7 @@ import unittest
 import json
 import src.provider.terraform.resource as resource
 
+
 class TestResource(unittest.TestCase):
     json = '''
     {
@@ -21,7 +22,7 @@ class TestResource(unittest.TestCase):
         ]
     }
     '''
-    
+
     def test_parse_array(self):
         data = json.loads(self.json)
         parser = resource.Resources()
@@ -31,6 +32,5 @@ class TestResource(unittest.TestCase):
     def test_parse(self):
         data = json.loads(self.json)
         parser = resource.Resources()
-        dic =  parser.parse(data["resources"][0])
+        dic = parser.parse(data["resources"][0])
         self.assertEqual(data["resources"][0]["type"], dic["type"])
-        

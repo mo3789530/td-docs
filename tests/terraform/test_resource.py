@@ -1,5 +1,6 @@
-import unittest
 import json
+import unittest
+
 import src.provider.terraform.resource as resource
 
 
@@ -33,4 +34,5 @@ class TestResource(unittest.TestCase):
         data = json.loads(self.json)
         parser = resource.Resources()
         dic = parser.parse(data["resources"][0])
-        self.assertEqual(data["resources"][0]["type"], dic["type"])
+        self.assertEqual(dic["type"], data["resources"][0]["type"])
+        self.assertEqual(dic["provider"], "AWS")

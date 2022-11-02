@@ -1,25 +1,24 @@
 
 class State:
 
-    version   = "version"
+    version = "version"
     terraform_version = "terraform_version"
-    region    = "region"
-    outputs   = "outputs"
-    value     = "value"
+    value = "value"
+    serial = "serial"
     resources = "resources"
 
     def __init__(self) -> None:
         pass
 
     def parse(self, json) -> dict:
-        version = json[self.version]
-        region = json[self.outputs][self.region][self.value]
-        resources = json[self.resources]
+        version = json.get(self.version)
+        terraform_version = json.get(self.terraform_version)
+        serial = json.get(self.serial)
+        resources = json.get(self.resources)
 
         return {
             "version": version,
-            "region": region,
+            "terraform_version": terraform_version,
+            "serial": serial,
             "resources": resources
         }
-
-

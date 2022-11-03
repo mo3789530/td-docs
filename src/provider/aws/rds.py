@@ -86,6 +86,7 @@ class Rds:
             family:      attrs.get(family),
             parameter:   attrs.get(parameter),
             description: attrs.get(description)
+            scaling_configuration:           attrs.get(scaling_configuration)
         }
 
     # aws_db_instance
@@ -104,7 +105,7 @@ class Rds:
         endpoint = "endpoint"
         allocated_storage = "allocated_storage"
         allow_major_version_upgrade = "allow_major_version_upgrade"
-
+        availability_zone = "availability_zone"
         backup_retention_period = "backup_retention_period"
         backup_window = "backup_window"
         db_subnet_group_name = "db_subnet_group_name"
@@ -145,6 +146,7 @@ class Rds:
             publicly_accessible:      attrs.get(publicly_accessible),
             security_group_names:     attrs.get(security_group_names),
             snapshot_identifier:      attrs.get(snapshot_identifier),
+            availability_zone:        attrs.get(availability_zone),
             backup_retention_period:  attrs.get(backup_retention_period),
             backup_window:            attrs.get(backup_window),
             delete_automated_backups: attrs.get(delete_automated_backups),
@@ -156,6 +158,7 @@ class Rds:
             db_subnet_group_name:        attrs.get(db_subnet_group_name),
             dependencies:                json.get(dependencies)
         }
+
 
     # aws_db_subnet_group
     def db_subnet_group_parser(self, json: dict, rds_type: str) -> dict:
@@ -181,7 +184,8 @@ class Rds:
             dependencies: json.get(dependencies)
         }
 
-        # unknow type
+
+    # unknow type
     def unknown_type(self, json: dict, rds_type: str) -> dict:
         logger.warning(f"{rds_type} is not defined")
         return json
@@ -190,6 +194,7 @@ class Rds:
         switcher = {
             "aws_rds_cluster": self.rds_cluster_parser,
             "aws_db_instance": self.db_instance_parser,
+
             "aws_rds_cluster_parameter_group": self.rds_cluster_parameter_group_parser,
             "aws_db_subnet_group": self.db_subnet_group_parser,
         }

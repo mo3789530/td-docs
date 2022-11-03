@@ -34,7 +34,7 @@ def main(args):
         if len(d.get("instances", [])) >= 1:
             s = aws.service_bridge(d.get("instances", [])[0],
                                    d.get("name", ""), d.get("type", ""))
-            # print(s)
+            logger.debug(s)
 
 
 if __name__ == "__main__":

@@ -16,7 +16,7 @@ class AWSService():
 
     def service_bridge(self, dic: dict, name: str, aws_type: str) -> str:
         if "iam" in aws_type:
-            logger.info("iam_type " + aws_type)
+            logger.debug("iam_type " + aws_type)
             return self.__aws_iam_adapter(dic=dic, name=name, aws_tpye=aws_type)
         else:
             return ""

@@ -102,6 +102,25 @@ class MarkdownTemplateAWSRds:
         dst = template.render(data=data, role_name=name, rds_type=rds_type)
         return str(dst)
 
+    # aws_db_subnet_group
+    def db_subnet_group_template(self, data: dict, name: str, rds_type: str) -> str:
+        format = '''
+        ### {{rds_type}} {{name}}
+        | Items        | values                |
+        | ------------ | --------------------- |
+        | id           | {{data.id}}           |
+        | arn          | {{data.arn}}          |
+        | tags         | {{data.tags}}         |
+        | tags_all     | {{data.tags_all}}     |
+        | description  | {{data.description}}  |
+        | name         | {{data.name}}         |
+        | subnet_ids   | {{data.subnet_ids}}   |
+        | dependencies | {{data.dependencies}} |
+        '''
+        template = Template(format)
+        dst = template.render(data=data, role_name=name, rds_type=rds_type)
+        return str(dst)
+
     def unknown_template(self, data: dict, name: str, rds_type: str) -> str:
         self.logger.warning(f"unknown_template: {rds_type} {name}")
         return ""
@@ -111,6 +130,7 @@ class MarkdownTemplateAWSRds:
             "aws_rds_cluster": self.rds_cluster_template,
             "aws_rds_cluster_parameter_group": self.rds_cluster_parameter_group_template,
             "aws_db_instance": self.db_instance_template,
+            "aws_db_subnet_group": self.db_subnet_group_template
         }
 
         return switcher.get(rds_type, self.unknown_template)(data=data, name=name, rds_type=rds_type)

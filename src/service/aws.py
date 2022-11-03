@@ -2,7 +2,9 @@ from logging import getLogger
 
 from libs.pretty import pretty_markdwon
 from provider.aws.iam import Iam
+from provider.aws.rds import Rds
 from template.awa.markdown.iam import MarkdownTemplateAWSIam
+from template.awa.markdown.rds import MarkdownTemplateAWSRds
 
 logger = getLogger("src").getChild(__name__)
 
@@ -18,6 +20,8 @@ class AWSService():
         if "iam" in aws_type:
             logger.debug("iam_type " + aws_type)
             return self.__aws_iam_adapter(dic=dic, name=name, aws_tpye=aws_type)
+        elif "rds" in aws_type or "db" in aws_type:
+            return self.__aws_rds_adapter(dic=dic, name=name, aws_tpye=aws_type)
         else:
             return ""
 
@@ -26,3 +30,9 @@ class AWSService():
         if type(data) != dict:
             raise Exception("Error parsed data type")
         return pretty_markdwon(MarkdownTemplateAWSIam().create_markdown_facade(data=data, name=name, iam_type=aws_tpye))
+
+    def __aws_rds_adapter(self, dic: dict, name: str, aws_tpye: str) -> str:
+        data = Rds().parse(dic, aws_tpye)
+        if type(data) != dict:
+            raise Exception("Error parsed data type")
+        return pretty_markdwon(MarkdownTemplateAWSRds().create_markdown_facade(data=data, name=name, rds_type=aws_tpye))

@@ -71,3 +71,20 @@
 | family      | {{data.family}}      |
 | parameter   | {{data.parameter}}   |
 | description | {{data.description}} |
+
+
+
+### aws_db_subnet_group {{name}}
+| Items        | values                |
+| ------------ | --------------------- |
+| id           | {{data.id}}           |
+| arn          | {{data.arn}}          |
+| tags         | {{data.tags}}         |
+| tags_all     | {{data.tags_all}}     |
+| description  | {{data.description}}  |
+| name         | {{data.name}}         |
+| subnet_ids   | {{data.subnet_ids}}   |
+| dependencies | {{data.dependencies}} |
+
+
+

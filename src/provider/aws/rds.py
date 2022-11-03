@@ -157,7 +157,31 @@ class Rds:
             dependencies:                json.get(dependencies)
         }
 
-    # unknow type
+    # aws_db_subnet_group
+    def db_subnet_group_parser(self, json: dict, rds_type: str) -> dict:
+        attributes = "attributes"
+        id = "id"
+        arn = "arn"
+        name = "name"
+        tags = "tags"
+        tags_all = "tags_all"
+        subnet_ids = "subnet_ids"
+        description = "description"
+        dependencies = "dependencies"
+        attrs = json.get(attributes, {})
+
+        return {
+            id:   attrs.get(id),
+            arn:  attrs.get(arn),
+            name: attrs.get(name),
+            tags: attrs.get(tags),
+            description:  attrs.get(description),
+            tags_all:     attrs.get(tags_all),
+            subnet_ids:   attrs.get(subnet_ids),
+            dependencies: json.get(dependencies)
+        }
+
+        # unknow type
     def unknown_type(self, json: dict, rds_type: str) -> dict:
         logger.warning(f"{rds_type} is not defined")
         return json
@@ -166,5 +190,7 @@ class Rds:
         switcher = {
             "aws_rds_cluster": self.rds_cluster_parser,
             "aws_db_instance": self.db_instance_parser,
+            "aws_rds_cluster_parameter_group": self.rds_cluster_parameter_group_parser,
+            "aws_db_subnet_group": self.db_subnet_group_parser,
         }
         return switcher.get(rds_type, self.unknown_type)(json=json, rds_type=rds_type)

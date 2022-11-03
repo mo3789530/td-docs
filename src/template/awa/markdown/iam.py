@@ -1,8 +1,11 @@
+from logging import getLogger
+
 from jinja2 import Template
 
 
 class MarkdownTemplateAWSIam:
     project_id = None
+    logger = getLogger("src").getChild(__name__)
 
     def __init__(self) -> None:
         pass
@@ -68,7 +71,7 @@ class MarkdownTemplateAWSIam:
         return ""
 
     def unknown_template(self, data: dict, name: str) -> str:
-        print(f"unknown_template: {name}")
+        self.logger.warning(f"unknown_template: {name}")
         return ""
 
     def create_markdown_facade(self, data: dict, name: str, iam_type: str) -> str:

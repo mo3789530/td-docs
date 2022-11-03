@@ -24,12 +24,12 @@ class Iam:
 
         return {
             "type": iam_type,
-            schema_version:                json.get(schema_version),
-            attributes_arn:                json.get(attributes, {}).get(attributes_arn),
-            attributes_assume_role_policy: json.get(attributes, {}).get(attributes_assume_role_policy),
-            attributes_description:        json.get(attributes, {}).get(attributes_description),
-            attributes_tags:               json.get(attributes, {}).get(attributes_tags),
-            dependencies:                  json.get(dependencies)
+            "schema_version":                json.get(schema_version),
+            "attributes_arn":                json.get(attributes, {}).get(attributes_arn),
+            "attributes_assume_role_policy": json.get(attributes, {}).get(attributes_assume_role_policy),
+            "attributes_description":        json.get(attributes, {}).get(attributes_description),
+            "attributes_tags":               json.get(attributes, {}).get(attributes_tags),
+            "dependencies":                  json.get(dependencies)
         }
 
     # aws_iam_policy
@@ -46,14 +46,14 @@ class Iam:
 
         return {
             "type": iam_type,
-            schema_version:  json.get(schema_version),
-            attributes_arn:  json.get(attributes, {}).get(attributes_arn),
-            attributes_name: json.get(attributes, {}).get(attributes_name),
-            attributes_assume_role_policy: json.get(attributes, {}).get(attributes_assume_role_policy),
-            attributes_description:        json.get(attributes, {}).get(attributes_description),
-            attributes_tags:               json.get(attributes, {}).get(attributes_tags),
-            attributes_policy:             pretty_json(json.get(attributes, {}).get(attributes_policy, "")),
-            dependencies:                  json.get(dependencies)
+            "schema_version":  json.get(schema_version),
+            "attributes_arn":  json.get(attributes, {}).get(attributes_arn),
+            "attributes_name": json.get(attributes, {}).get(attributes_name),
+            "attributes_assume_role_policy": json.get(attributes, {}).get(attributes_assume_role_policy),
+            "attributes_description":        json.get(attributes, {}).get(attributes_description),
+            "attributes_tags":               json.get(attributes, {}).get(attributes_tags),
+            "attributes_policy":             pretty_json(json.get(attributes, {}).get(attributes_policy, "")),
+            "dependencies":                  json.get(dependencies)
         }
 
     # aws_iam_instance_profile
@@ -74,14 +74,36 @@ class Iam:
 
         return {
             "type":                iam_type,
-            schema_version:        json.get(schema_version),
-            attributes_id:         json.get(attributes, {}).get(attributes_id),
-            attributes_json:       pretty_json(json.get(attributes, {}).get(attributes_json, "")),
-            attributes_state:      json.get(attributes, {}).get(attributes_state, []),
-            attributes_condition:  json.get(attributes, {}).get(attributes_condition),
-            attributes_tags:       json.get(attributes, {}).get(attributes_tags),
-            attributes_principals: pretty_json(json.get(attributes, {}).get(attributes_principals, "")),
-            resources:             json.get(resources)
+            "schema_version":        json.get(schema_version),
+            "attributes_id":         json.get(attributes, {}).get(attributes_id),
+            "attributes_json":       pretty_json(json.get(attributes, {}).get(attributes_json, "")),
+            "attributes_state":      json.get(attributes, {}).get(attributes_state, []),
+            "attributes_condition":  json.get(attributes, {}).get(attributes_condition),
+            "attributes_tags":       json.get(attributes, {}).get(attributes_tags),
+            "attributes_principals": pretty_json(json.get(attributes, {}).get(attributes_principals, "")),
+            "resources":             json.get(resources)
+        }
+
+    # aws_iam_role_policy_attachment
+    def role_policy_attachment_parser(self, json: dict, iam_type: str) -> dict | None:
+        schema_version = "schema_version"
+        attributes = "attributes"
+        attributes_id = "id"
+        attributes_role = "role"
+        attributes_policy_arn = "policy_arn"
+        attributes_tags = "tags"
+        dependencies = "dependencies"
+
+        attributes = json.get("attributes", {})
+
+        return {
+            "type":                  iam_type,
+            "schema_version":        json.get(schema_version),
+            "attributes_id":         attributes.get(attributes_id),
+            "attributes_role":       attributes.get(attributes_role),
+            "attributes_policy_arn": attributes.get(attributes_policy_arn),
+            "attributes_tags":       attributes.get(attributes_tags),
+            "dependencies":          json.get(dependencies),
         }
 
     # unknow type
@@ -96,5 +118,6 @@ class Iam:
             "aws_iam_role": self.role_parser,
             "aws_iam_policy": self.policy_parser,
             "aws_iam_policy_document": self.policy_document_parser,
+            "aws_iam_role_policy_attachment": self.role_policy_attachment_parser
         }
         return switcher.get(iam_type, self.unknown_type)(json=json, iam_type=iam_type)

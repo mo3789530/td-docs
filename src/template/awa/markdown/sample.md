@@ -37,3 +37,13 @@
 | attributes_condition  | {{data.attributes_condition}}  |
 | attributes_principals | {{data.attributes_principals}} |
 | resources             | {{data.resources}}             |
+
+### aws_iam_role_policy_attachment {{name}}
+| Items                 | values                         |
+| --------------------- | ------------------------------ |
+| schema_version        | {{data.schema_version}}        |
+| attributes_id         | {{data.attributes_id}}         |
+| attributes_role       | {{data.attributes_role}}       |
+| attributes_policy_arn | {{data.attributes_policy_arn}} |
+| attributes_tags       | {{data.attributes_tags}}       |
+| dependencies          | {{data.dependencies}}          |

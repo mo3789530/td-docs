@@ -1,4 +1,8 @@
+from logging import getLogger
+
 from libs.pretty import pretty_json
+
+logger = getLogger(__name__)
 
 
 class Iam:
@@ -82,7 +86,7 @@ class Iam:
 
     # unknow type
     def unknown_type(self, json: dict, iam_type: str):
-        print(f"{iam_type} is not defined")
+        logger.warning(f"{iam_type} is not defined")
         # raise Exception(f"{iam_type} is not defined in iam type")
         return json
 

@@ -1,7 +1,10 @@
 import argparse
 import json
+from logging import config, getLogger
 
 from service.aws import AWSService
+
+logger = getLogger(__name__)
 
 
 def json_open(file_path: str) -> dict:
@@ -14,7 +17,7 @@ def parse(data: dict):
 
 
 def main(args):
-    print(f'start tf-doc file: {args.file}')
+    logger.info(f'start tf-doc file: {args.file}')
     # print(args.file)
     # print(args.format)
     data = None
@@ -22,7 +25,7 @@ def main(args):
         data = json_open(args.file)
         data.get("resources")
     except Exception as e:
-        print(e)
+        logger.error(e)
         exit(-1)
 
     data = data.get("resources", {})
@@ -31,7 +34,7 @@ def main(args):
         if len(d.get("instances", [])) >= 1:
             s = aws.service_bridge(d.get("instances", [])[0],
                                    d.get("name", ""), d.get("type", ""))
-            print(s)
+            # print(s)
 
 
 if __name__ == "__main__":
@@ -39,4 +42,7 @@ if __name__ == "__main__":
     parser.add_argument("--file")
     parser.add_argument("--format")
     args = parser.parse_args()
+    with open("./log_config.json", 'r') as f:
+        log_conf = json.load(f)
+    config.dictConfig(log_conf)
     main(args=args)

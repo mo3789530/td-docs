@@ -4,7 +4,7 @@ from libs.pretty import pretty_markdwon
 from provider.aws.iam import Iam
 from template.awa.markdown.iam import MarkdownTemplateAWSIam
 
-logger = getLogger(__name__)
+logger = getLogger("src").getChild(__name__)
 
 
 class AWSService():

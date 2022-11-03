@@ -2,7 +2,7 @@ from logging import getLogger
 
 from libs.pretty import pretty_json
 
-logger = getLogger(__name__)
+logger = getLogger("src").getChild(__name__)
 
 
 class Iam:

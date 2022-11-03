@@ -11,11 +11,13 @@ class Rds:
     def rds_cluster_parser(self, json: dict, rds_type: str) -> dict:
         attributes = "attributes"
         arn = "arn"
+        tags = "tags"
+        tags_all = "tags_all"
         availability_zones = "availability_zones"
         backtrack_window = "backtrack_window"
         backup_retention_period = "backup_retention_period"
         cluster_identifier = "cluster_identifier"
-        cluster_resource_id = "cluster_resource_id"
+        # cluster_resource_id = "cluster_resource_id"
         copy_tags_to_snapshot = "copy_tags_to_snapshot"
         database_name = "database_name"
         db_cluster_parameter_group_name = "db_cluster_parameter_group_name"
@@ -28,11 +30,18 @@ class Rds:
         skip_final_snapshot = "skip_final_snapshot"
         vpc_security_group_ids = "vpc_security_group_ids"
         scaling_configuration = "scaling_configuration"
+        availability_zone = "availability_zone"
+        enabled_cloudwatch_logs_exports = "enabled_cloudwatch_logs_exports"
+        storage_encrypted = "storage_encrypted"
+        db_subnet_group_name = "db_subnet_group_name"
+        global_cluster_identifier = "global_cluster_identifier"
 
         attrs = json.get(attributes, {})
         return {
             arn: attrs.get(arn),
             availability_zones:              attrs.get(availability_zones),
+            tags:                            attrs.get(tags),
+            tags_all:                        attrs.get(tags_all),
             backtrack_window:                attrs.get(backtrack_window),
             backup_retention_period:         attrs.get(backup_retention_period),
             copy_tags_to_snapshot:           attrs.get(copy_tags_to_snapshot),
@@ -43,11 +52,40 @@ class Rds:
             engine:                          attrs.get(engine),
             engine_version:                  attrs.get(engine_version),
             port:                            attrs.get(port),
+            availability_zone:               attrs.get(availability_zone),
             preferred_backup_window:         attrs.get(preferred_backup_window),
             preferred_maintenance_window:    attrs.get(preferred_maintenance_window),
             skip_final_snapshot:             attrs.get(skip_final_snapshot),
             vpc_security_group_ids:          attrs.get(vpc_security_group_ids),
-            scaling_configuration:           attrs.get(scaling_configuration)
+            enabled_cloudwatch_logs_exports: attrs.get(enabled_cloudwatch_logs_exports),
+            storage_encrypted:               attrs.get(storage_encrypted),
+            db_subnet_group_name:            attrs.get(db_subnet_group_name),
+            global_cluster_identifier:       attrs.get(global_cluster_identifier),
+        }
+
+    # aws_rds_cluster_parameter_group
+    def rds_cluster_parameter_group_parser(self, json: dict, rds_type: str) -> dict:
+        attributes = "attributes"
+
+        arn = "arn"
+        id = "id"
+        name = "name"
+        family = "family"
+        tags = "tags"
+        tags_all = "tags_all"
+        parameter = "parameter"
+        description = "description"
+        attrs = json.get(attributes, {})
+
+        return {
+            id:          attrs.get(id),
+            arn:         attrs.get(arn),
+            name:        attrs.get(name),
+            tags:        attrs.get(tags),
+            tags_all:    attrs.get(tags_all),
+            family:      attrs.get(family),
+            parameter:   attrs.get(parameter),
+            description: attrs.get(description)
         }
 
     # aws_db_instance
@@ -66,7 +104,7 @@ class Rds:
         endpoint = "endpoint"
         allocated_storage = "allocated_storage"
         allow_major_version_upgrade = "allow_major_version_upgrade"
-        availability_zone = "availability_zone"
+
         backup_retention_period = "backup_retention_period"
         backup_window = "backup_window"
         db_subnet_group_name = "db_subnet_group_name"
@@ -107,7 +145,6 @@ class Rds:
             publicly_accessible:      attrs.get(publicly_accessible),
             security_group_names:     attrs.get(security_group_names),
             snapshot_identifier:      attrs.get(snapshot_identifier),
-            availability_zone:        attrs.get(availability_zone),
             backup_retention_period:  attrs.get(backup_retention_period),
             backup_window:            attrs.get(backup_window),
             delete_automated_backups: attrs.get(delete_automated_backups),

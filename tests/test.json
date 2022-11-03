@@ -1374,5 +1374,35 @@
                 }
             ]
         },
+        {
+            "mode": "managed",
+            "type": "aws_rds_cluster_parameter_group",
+            "name": "cluster_parameter_example",
+            "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+            "instances": [
+                {
+                    "schema_version": 0,
+                    "attributes": {
+                        "arn": "arn:aws:rds:ap-northeast-1:784696862265:cluster-pg:example",
+                        "description": "Managed by Terraform",
+                        "family": "aurora-postgresql10",
+                        "id": "example",
+                        "name": "example",
+                        "name_prefix": null,
+                        "parameter": [
+                            {
+                                "apply_method": "pending-reboot",
+                                "name": "shared_preload_libraries",
+                                "value": "pg_stat_statements ,pg_hint_plan ,pgaudit"
+                            }
+                        ],
+                        "tags": {},
+                        "tags_all": {}
+                    },
+                    "sensitive_attributes": [],
+                    "private": "bnVsbA=="
+                }
+            ]
+        }
     ]
 }

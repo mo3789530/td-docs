@@ -1,3 +1,6 @@
+from libs.pretty import pretty_json
+
+
 class Iam:
     iam_type = ["aws_iam_instance_profile", "aws_iam_role",
                 "aws_iam_policy", "aws_iam_policy_document"]
@@ -45,7 +48,7 @@ class Iam:
             attributes_assume_role_policy: json.get(attributes, {}).get(attributes_assume_role_policy),
             attributes_description:        json.get(attributes, {}).get(attributes_description),
             attributes_tags:               json.get(attributes, {}).get(attributes_tags),
-            attributes_policy:             json.get(attributes, {}).get(attributes_policy),
+            attributes_policy:             pretty_json(json.get(attributes, {}).get(attributes_policy, "")),
             dependencies:                  json.get(dependencies)
         }
 
@@ -69,11 +72,11 @@ class Iam:
             "type":                iam_type,
             schema_version:        json.get(schema_version),
             attributes_id:         json.get(attributes, {}).get(attributes_id),
-            attributes_json:       json.get(attributes, {}).get(attributes_json),
-            attributes_state:      json.get(attributes, {}).get(attributes_state),
+            attributes_json:       pretty_json(json.get(attributes, {}).get(attributes_json, "")),
+            attributes_state:      json.get(attributes, {}).get(attributes_state, []),
             attributes_condition:  json.get(attributes, {}).get(attributes_condition),
             attributes_tags:       json.get(attributes, {}).get(attributes_tags),
-            attributes_principals: json.get(attributes, {}).get(attributes_principals),
+            attributes_principals: pretty_json(json.get(attributes, {}).get(attributes_principals, "")),
             resources:             json.get(resources)
         }
 

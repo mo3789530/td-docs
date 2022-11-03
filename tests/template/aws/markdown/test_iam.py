@@ -18,7 +18,7 @@ class TestTemplateIam(unittest.TestCase):
                                  "dependencies2"]
                 }
         service = iam.MarkdownTemplateAWSIam()
-        dst = service.role_template(data=data, role_name="test_role_test")
+        dst = service.role_template(data=data, name="test_role_test")
         self.assertTrue("test_arn" in dst)
         self.assertTrue("test_role_test" in dst)
         self.assertFalse("test_attributes_assume_role_policyb" in dst)

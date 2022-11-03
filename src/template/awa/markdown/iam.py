@@ -26,7 +26,7 @@ class MarkdownTemplateAWSIam:
     def policy_template(self, data: dict, name: str) -> str:
         format = '''
         # Role ({{name}})
-
+        
         | Items                         | values                                 |
         | ----------------------------- | -------------------------------------- |
         | schema_version                | {{data.schema_version}}                |

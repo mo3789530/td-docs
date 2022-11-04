@@ -1,5 +1,7 @@
 from logging import getLogger
 
+from libs.pretty import pretty_array
+
 logger = getLogger("src").getChild(__name__)
 
 
@@ -85,8 +87,7 @@ class Rds:
             tags_all:    attrs.get(tags_all),
             family:      attrs.get(family),
             parameter:   attrs.get(parameter),
-            description: attrs.get(description)
-            scaling_configuration:           attrs.get(scaling_configuration)
+            description: pretty_array(attrs.get(description, []))
         }
 
     # aws_db_instance
@@ -156,11 +157,12 @@ class Rds:
             vpc_security_group_ids:          attrs.get(vpc_security_group_ids),
             allow_major_version_upgrade: attrs.get(allow_major_version_upgrade),
             db_subnet_group_name:        attrs.get(db_subnet_group_name),
-            dependencies:                json.get(dependencies)
+            dependencies:                pretty_array(
+                json.get(dependencies, []))
         }
 
-
     # aws_db_subnet_group
+
     def db_subnet_group_parser(self, json: dict, rds_type: str) -> dict:
         attributes = "attributes"
         id = "id"
@@ -181,11 +183,11 @@ class Rds:
             description:  attrs.get(description),
             tags_all:     attrs.get(tags_all),
             subnet_ids:   attrs.get(subnet_ids),
-            dependencies: json.get(dependencies)
+            dependencies: pretty_array(json.get(dependencies, []))
         }
 
-
     # unknow type
+
     def unknown_type(self, json: dict, rds_type: str) -> dict:
         logger.warning(f"{rds_type} is not defined")
         return json

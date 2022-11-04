@@ -1,6 +1,6 @@
 from logging import getLogger
 
-from libs.pretty import pretty_json
+from libs.pretty import pretty_array, pretty_json
 
 logger = getLogger("src").getChild(__name__)
 
@@ -26,10 +26,10 @@ class Iam:
             "type": iam_type,
             "schema_version":                json.get(schema_version),
             "attributes_arn":                json.get(attributes, {}).get(attributes_arn),
-            "attributes_assume_role_policy": json.get(attributes, {}).get(attributes_assume_role_policy),
+            "attributes_assume_role_policy": pretty_json(json.get(attributes, {}).get(attributes_assume_role_policy, {})),
             "attributes_description":        json.get(attributes, {}).get(attributes_description),
             "attributes_tags":               json.get(attributes, {}).get(attributes_tags),
-            "dependencies":                  json.get(dependencies)
+            "dependencies":                  pretty_array(json.get(dependencies, []))
         }
 
     # aws_iam_policy
@@ -53,7 +53,7 @@ class Iam:
             "attributes_description":        json.get(attributes, {}).get(attributes_description),
             "attributes_tags":               json.get(attributes, {}).get(attributes_tags),
             "attributes_policy":             pretty_json(json.get(attributes, {}).get(attributes_policy, "")),
-            "dependencies":                  json.get(dependencies)
+            "dependencies":                  pretty_array(json.get(dependencies, []))
         }
 
     # aws_iam_instance_profile
@@ -103,7 +103,7 @@ class Iam:
             "attributes_role":       attributes.get(attributes_role),
             "attributes_policy_arn": attributes.get(attributes_policy_arn),
             "attributes_tags":       attributes.get(attributes_tags),
-            "dependencies":          json.get(dependencies),
+            "dependencies":          pretty_array(json.get(dependencies, []))
         }
 
     # unknow type

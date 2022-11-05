@@ -57,7 +57,7 @@ class TestAwsIam(unittest.TestCase):
         self.assertEqual(res.get(
             "arn"), "arn:aws:iam::552883280992:role/octopusx-grid-520201111113220197100000002")
 
-    def test_policy_parse(self):
+    def test_policy_parse2(self):
         json_str = """
         {
           "index_key": 0,

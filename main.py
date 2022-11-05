@@ -1,7 +1,9 @@
 import argparse
 import json
+import re
 from logging import config, getLogger
 
+from src.libs.md import is_exist_md, write_md
 from src.service.aws import AWSService
 
 logger = getLogger(__name__)
@@ -21,9 +23,14 @@ def main(args):
     # print(args.file)
     # print(args.format)
     data = None
+    output = ""
+    if args.output == None:
+        output = re.sub(".json", ".md", args.file)
+    else:
+        output = args.output
     try:
         data = json_open(args.file)
-        data.get("resources")
+        is_exist_md(output)
     except Exception as e:
         logger.error(e)
         exit(-1)
@@ -31,16 +38,19 @@ def main(args):
     data = data.get("resources", {})
     aws = AWSService()
     for d in data:
-        if len(d.get("instances", [])) >= 1:
-            s = aws.service_bridge(d.get("instances", [])[0],
-                                   d.get("name", ""), d.get("type", ""))
-            logger.debug(s)
+        instances = d.get("instances")
+        if len(instances) >= 1:
+            for i in instances:
+                dst = aws.service_bridge(
+                    i, d.get("name", ""), d.get("type", ""))
+                write_md(output=output, dst=dst)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--file")
     parser.add_argument("--format")
+    parser.add_argument("--output")
     args = parser.parse_args()
     with open("./log_config.json", 'r') as f:
         log_conf = json.load(f)

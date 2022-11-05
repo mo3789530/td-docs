@@ -2,48 +2,80 @@
 
 ### Role ({iam_name})  
 
-| Items                         | values                                 |
-| ----------------------------- | -------------------------------------- |
-| schema_version                | {{data.schema_version}}                |
-| attributes_arn                | {{data.attributes_arn}}                |
-| attributes_assume_role_policy | {{data.attributes_assume_role_policy}} |
-| attributes_description        | {{data.attributes_description}}        |
-| attributes_tags               | {{data.attributes_tags}}               |
-| dependencies                  | {{data.dependencies}}                  |
+| Items              | values                      |
+| ------------------ | --------------------------- |
+| schema_version     | {{data.schema_version}}     |
+| arn                | {{data.arn}}                |
+| assume_role_policy | {{data.assume_role_policy}} |
+| description        | {{data.description}}        |
+| tags               | {{data.tags}}               |
+| dependencies       | {{data.dependencies}}       |
 
 ### aws_iam_policy {{name}}
 
-| Items                         | values                                 |
-| ----------------------------- | -------------------------------------- |
-| schema_version                | {{data.schema_version}}                |
-| attributes_arn                | {{data.attributes_arn}}                |
-| attributes_name               | {{data.attributes_name}}               |
-| attributes_assume_role_policy | {{data.attributes_assume_role_policy}} |
-| attributes_description        | {{data.attributes_description}}        |
-| attributes_policy             | {{data.attributes_policy}}             |
-| attributes_tags               | {{data.attributes_tags}}               |
-| dependencies                  | {{data.dependencies}}                  |
+| Items              | values                      |
+| ------------------ | --------------------------- |
+| schema_version     | {{data.schema_version}}     |
+| arn                | {{data.arn}}                |
+| name               | {{data.name}}               |
+| assume_role_policy | {{data.assume_role_policy}} |
+| description        | {{data.description}}        |
+| policy             | {{data.policy}}             |
+| tags               | {{data.tags}}               |
+| dependencies       | {{data.dependencies}}       |
 
 ### aws_iam_policy_document {{name}}
 
-| Items                 | values                         |
-| --------------------- | ------------------------------ |
-| schema_version        | {{data.schema_version}}        |
-| attributes_id         | {{data.attributes_id}}         |
-| attributes_name       | {{data.attributes_name}}       |
-| attributes_json       | {{data.attributes_json}}       |
-| attributes_state      | {{data.attributes_state}}      |
-| attributes_tags       | {{data.attributes_tags}}       |
-| attributes_condition  | {{data.attributes_condition}}  |
-| attributes_principals | {{data.attributes_principals}} |
-| resources             | {{data.resources}}             |
+| Items          | values                  |
+| -------------- | ----------------------- |
+| schema_version | {{data.schema_version}} |
+| id             | {{data.id}}             |
+| name           | {{data.name}}           |
+| json           | {{data.json}}           |
+| state          | {{data.state}}          |
+| tags           | {{data.tags}}           |
+| condition      | {{data.condition}}      |
+| principals     | {{data.principals}}     |
+| resources      | {{data.resources}}      |
 
 ### aws_iam_role_policy_attachment {{name}}
-| Items                 | values                         |
-| --------------------- | ------------------------------ |
-| schema_version        | {{data.schema_version}}        |
-| attributes_id         | {{data.attributes_id}}         |
-| attributes_role       | {{data.attributes_role}}       |
-| attributes_policy_arn | {{data.attributes_policy_arn}} |
-| attributes_tags       | {{data.attributes_tags}}       |
-| dependencies          | {{data.dependencies}}          |
+| Items          | values                  |
+| -------------- | ----------------------- |
+| schema_version | {{data.schema_version}} |
+| id             | {{data.id}}             |
+| role           | {{data.role}}           |
+| policy_arn     | {{data.policy_arn}}     |
+| tags           | {{data.tags}}           |
+| dependencies   | {{data.dependencies}}   |
+
+
+### aws_iam_user_policy_attachment {{name}}
+| Items          | values                  |
+| -------------- | ----------------------- |
+| schema_version | {{data.schema_version}} |
+| id             | {{data.id}}             |
+| policy_arn     | {{data.policy_arn}}     |
+| dependencies   | {{data.dependencies}}   |
+
+### aws_iam_user {{name}}
+| Items          | values                  |
+| -------------- | ----------------------- |
+| schema_version | {{data.schema_version}} |
+| id             | {{data.id}}             |
+| arn            | {{data.arn}}            |
+| name           | {{data.name}}           |
+| tags           | {{data.tags}}           |
+| dependencies   | {{data.dependencies}}   |
+
+### aws_iam_policy_attachment {{name}}
+| Items          | values                  |
+| -------------- | ----------------------- |
+| schema_version | {{data.schema_version}} |
+| id             | {{data.id}}             |
+| name           | {{data.name}}           |
+| policy_arn     | {{data.policy_arn}}     |
+| tags           | {{data.tags}}           |
+| roles          | {{data.roles}}          |
+| users          | {{data.users}}          |
+| dependencies   | {{data.dependencies}}   |
+

@@ -1,6 +1,6 @@
 from logging import getLogger
 
-from libs.pretty import pretty_array, pretty_json
+from src.libs.pretty import pretty_array, pretty_json
 
 logger = getLogger("src").getChild(__name__)
 

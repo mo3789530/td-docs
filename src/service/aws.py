@@ -1,10 +1,10 @@
 from logging import getLogger
 
-from libs.pretty import pretty_markdwon
-from provider.aws.iam import Iam
-from provider.aws.rds import Rds
-from template.awa.markdown.iam import MarkdownTemplateAWSIam
-from template.awa.markdown.rds import MarkdownTemplateAWSRds
+from src.libs.pretty import pretty_markdwon
+from src.provider.aws.iam import Iam
+from src.provider.aws.rds import Rds
+from src.template.awa.markdown.iam import MarkdownTemplateAWSIam
+from src.template.awa.markdown.rds import MarkdownTemplateAWSRds
 
 logger = getLogger("src").getChild(__name__)
 

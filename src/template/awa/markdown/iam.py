@@ -27,20 +27,21 @@ class MarkdownTemplateAWSIam:
         dst = template.render(data=data, role_name=name, iam_type=iam_type)
         return str(dst)
 
-    # aws_iam_policy
+    # aws_iam_policy_document
     def policy_template(self, data: dict, name: str, iam_type: str) -> str:
         format = '''
         # {{iam_type}} ({{name}})
         
-        | Items              | values                      |
-        | ------------------ | --------------------------- |
-        | arn                | {{data.arn}}                |
-        | name               | {{data.name}}               |
-        | assume_role_policy | {{data.assume_role_policy}} |
-        | description        | {{data.description}}        |
-        | policy             | {{data.policy}}             |
-        | tags               | {{data.tags}}               |
-        | dependencies       | {{data.dependencies}}       |
+        | Items          | values                  |
+        | -------------- | ----------------------- |
+        | id             | {{data.id}}             |
+        | name           | {{data.name}}           |
+        | json           | {{data.json}}           |
+        | state          | {{data.state}}          |
+        | tags           | {{data.tags}}           |
+        | condition      | {{data.condition}}      |
+        | principals     | {{data.principals}}     |
+        | resources      | {{data.resources}}      |
         '''
 
         template = Template(format)

@@ -54,8 +54,6 @@ class TestAwsIam(unittest.TestCase):
         iam = src.provider.aws.iam.Iam()
 
         res = iam.parse(json=data, iam_type="aws_iam_role")
-        self.assertEqual(res.get("dependencies"),
-                         ["module.eks.data.aws_iam_policy_document.cluster_assume_role_policy"])
         self.assertEqual(res.get(
             "arn"), "arn:aws:iam::552883280992:role/octopusx-grid-520201111113220197100000002")
 

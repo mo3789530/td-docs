@@ -1,4 +1,3 @@
-
 import unittest
 
 import src.template.awa.markdown.iam as iam
@@ -7,10 +6,10 @@ import src.template.awa.markdown.iam as iam
 class TestTemplateIam(unittest.TestCase):
     def test_role_markdown(self):
         data = {"schema_version": 0,
-                "attributes_arn": "test_arn",
-                "attributes_assume_role_policy": "test_attributes_assume_role_policy",
-                "attributes_description": "test_attributes_description",
-                "attributes_tags": {
+                "arn": "test_arn",
+                "assume_role_policy": "test_attributes_assume_role_policy",
+                "description": "test_attributes_description",
+                "tags": {
                     "test_tag1": "t1",
                     "test_tag2": "t2"
                 },

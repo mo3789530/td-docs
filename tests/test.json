@@ -1403,6 +1403,142 @@
                     "private": "bnVsbA=="
                 }
             ]
+        },
+        {
+            "mode": "managed",
+            "type": "aws_iam_user_policy_attachment",
+            "name": "test-attach2",
+            "provider": "provider.aws",
+            "instances": [
+                {
+                    "schema_version": 0,
+                    "attributes": {
+                        "id": "loadbalancer-2020111317225517310000000a",
+                        "policy_arn": "arn:aws:iam::526954929923:policy/test2",
+                        "user": "loadbalancer"
+                    },
+                    "private": "bnVsbA==",
+                    "dependencies": [
+                        "aws_iam_policy.test_ro2",
+                        "aws_iam_user.test"
+                    ]
+                }
+            ]
+        },
+        {
+            "module": "module.ecs_module",
+            "mode": "managed",
+            "type": "aws_iam_instance_profile",
+            "name": "test_profile",
+            "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+            "instances": [
+                {
+                    "schema_version": 0,
+                    "attributes": {
+                        "arn": "arn:aws:iam::862989290375:instance-profile/Aleidy-us-east-1-dev-instancePro",
+                        "create_date": "2021-01-06T21:33:20Z",
+                        "id": "Aleidy-us-east-1-dev-instancePro",
+                        "name": "Aleidy-us-east-1-dev-instancePro",
+                        "name_prefix": null,
+                        "path": "/",
+                        "role": "Aleidy-us-east-1-dev-ec2_role",
+                        "unique_id": "AIPA4R3RLRODSEQ6WQACN"
+                    },
+                    "private": "bnVsbA==",
+                    "dependencies": [
+                        "module.ecs_module.aws_iam_role.ec2-role"
+                    ],
+                    "create_before_destroy": true
+                }
+            ]
+        },
+        {
+            "module": "module.ecs_module",
+            "mode": "managed",
+            "type": "aws_iam_policy_attachment",
+            "name": "ec2_rp_attach",
+            "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+            "instances": [
+                {
+                    "schema_version": 0,
+                    "attributes": {
+                        "groups": [],
+                        "id": "Aleidy-us-east-1-dev-iamPolicy",
+                        "name": "Aleidy-us-east-1-dev-iamPolicy",
+                        "policy_arn": "arn:aws:iam::862989290375:policy/Aleidy-us-east-1-dev-ec2Policy",
+                        "roles": [
+                            "Aleidy-us-east-1-dev-ec2_role"
+                        ],
+                        "users": []
+                    },
+                    "private": "bnVsbA==",
+                    "dependencies": [
+                        "module.ecs_module.aws_iam_policy.ec2_policy",
+                        "module.ecs_module.aws_iam_role.ec2-role"
+                    ]
+                }
+            ]
+        },
+        {
+            "module": "module.myiam",
+            "mode": "managed",
+            "type": "aws_iam_user",
+            "name": "this",
+            "each": "list",
+            "provider": "provider.aws",
+            "instances": [
+                {
+                    "index_key": 0,
+                    "schema_version": 0,
+                    "attributes": {
+                        "arn": "arn:aws:iam::932716035065:user/admin-accessall",
+                        "force_destroy": false,
+                        "id": "admin-accessall",
+                        "name": "admin-accessall",
+                        "path": "/",
+                        "permissions_boundary": null,
+                        "tags": {
+                            "Stage": "Test"
+                        },
+                        "unique_id": "AIDA5SKRVHP4UT6QCU64A"
+                    },
+                    "private": "bnVsbA=="
+                },
+                {
+                    "index_key": 1,
+                    "schema_version": 0,
+                    "attributes": {
+                        "arn": "arn:aws:iam::932716035065:user/user-readonly",
+                        "force_destroy": false,
+                        "id": "user-readonly",
+                        "name": "user-readonly",
+                        "path": "/",
+                        "permissions_boundary": null,
+                        "tags": {
+                            "Stage": "Test"
+                        },
+                        "unique_id": "AIDA5SKRVHP4QFYBBBN4C"
+                    },
+                    "private": "bnVsbA=="
+                },
+                {
+                    "index_key": 2,
+                    "schema_version": 0,
+                    "attributes": {
+                        "arn": "arn:aws:iam::932716035065:user/admin-s3",
+                        "force_destroy": false,
+                        "id": "admin-s3",
+                        "name": "admin-s3",
+                        "path": "/",
+                        "permissions_boundary": null,
+                        "tags": {
+                            "Stage": "Test"
+                        },
+                        "unique_id": "AIDA5SKRVHP46SUXYZD64"
+                    },
+                    "private": "bnVsbA=="
+                }
+            ]
         }
     ]
 }

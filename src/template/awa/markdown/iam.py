@@ -15,13 +15,13 @@ class MarkdownTemplateAWSIam:
         format = '''
         # {{iam_type}} ({{role_name}})
 
-        | Items              | values                      |
-        | ------------------ | --------------------------- |
-        | arn                | {{data.arn}}                |
-        | assume_role_policy | {{data.assume_role_policy}} |
-        | description        | {{data.description}}        |
-        | tags               | {{data.tags}}               |
-        | dependencies       | {{data.dependencies}}       |
+        | Items              | values                    |
+        | ------------------ | ------------------------- |
+        | arn                | {{data.arn                | default("None") }} |
+        | assume_role_policy | {{data.assume_role_policy | default("None") }} |
+        | description        | {{data.description        | default("None") }} |
+        | tags               | {{data.tags               | default("None") }} |
+        | dependencies       | {{data.dependencies       | default("None") }} |
         '''
         template = Template(format)
         dst = template.render(data=data, role_name=name, iam_type=iam_type)
@@ -32,15 +32,15 @@ class MarkdownTemplateAWSIam:
         format = '''
         # {{iam_type}} ({{name}})
         
-        | Items              | values                      |
-        | ------------------ | --------------------------- |
-        | arn                | {{data.arn}}                |
-        | name               | {{data.name}}               |
-        | assume_role_policy | {{data.assume_role_policy}} |
-        | description        | {{data.description}}        |
-        | policy             | {{data.policy}}             |
-        | tags               | {{data.tags}}               |
-        | dependencies       | {{data.dependencies}}       |
+        | Items              | values                    |
+        | ------------------ | ------------------------- |
+        | arn                | {{data.arn                | default("None")}} |
+        | name               | {{data.name               | default("None")}} |
+        | assume_role_policy | {{data.assume_role_policy | default("None")}} |
+        | description        | {{data.description        | default("None")}} |
+        | policy             | {{data.policy             | default("None")}} |
+        | tags               | {{data.tags               | default("None")}} |
+        | dependencies       | {{data.dependencies       | default("None")}} |
         '''
 
         template = Template(format)
@@ -52,16 +52,16 @@ class MarkdownTemplateAWSIam:
         format = '''
         # {{iam_type}} ({{name}})
 
-        | Items                 | values                    |
-        | --------------------- | ------------------------- |
-        | id                    | {{data.id}}               |
-        | name                  | {{data.name}}             |
-        | json                  | {{data.json}}             |
-        | state                 | {{data.state}}            |
-        | tags                  | {{data.tags}}             |
-        | condition             | {{data.condition}}        |
-        | principals            | {{data.principals}}       |
-        | resources             | {{data.resources}}        |
+        | Items          | values                |
+        | -------------- | --------------------- |
+        | id             | {{data.id             | default("None")}} |
+        | name           | {{data.name           | default("None")}} |
+        | json           | {{data.json           | default("None")}} |
+        | state          | {{data.state          | default("None")}} |
+        | tags           | {{data.tags           | default("None")}} |
+        | condition      | {{data.condition      | default("None")}} |
+        | principals     | {{data.principals     | default("None")}} |
+        | resources      | {{data.resources      | default("None")}} |
         '''
 
         template = Template(format)
@@ -77,13 +77,13 @@ class MarkdownTemplateAWSIam:
         format = '''
         # {{iam_type}} ({{name}})
 
-        | Items                 | values                         |
-        | --------------------- | ------------------------------ |
-        | id                    | {{data.id}}                    |
-        | role                  | {{data.role}}                  |
-        | policy_arn            | {{data.policy_arn}}            |
-        | tags                  | {{data.tags}}                  |
-        | dependencies          | {{data.dependencies}}          |
+        | Items          | values                |
+        | -------------- | --------------------- |
+        | id             | {{data.id             | default("None")}} |
+        | role           | {{data.role           | default("None")}} |
+        | policy_arn     | {{data.policy_arn     | default("None")}} |
+        | tags           | {{data.tags           | default("None")}} |
+        | dependencies   | {{data.dependencies   | default("None")}} |
         '''
 
         template = Template(format)
@@ -95,11 +95,11 @@ class MarkdownTemplateAWSIam:
         format = '''
         # {{iam_type}} ({{name}})
 
-        | Items          | values                  |
-        | -------------- | ----------------------- |
-        | id             | {{data.id}}             |
-        | policy_arn     | {{data.policy_arn}}     |
-        | dependencies   | {{data.dependencies}}   |
+        | Items          | values                |
+        | -------------- | --------------------- |
+        | id             | {{data.id             | default("None")}} |
+        | policy_arn     | {{data.policy_arn     | default("None")}} |
+        | dependencies   | {{data.dependencies   | default("None")}} |
         '''
 
         template = Template(format)
@@ -111,13 +111,13 @@ class MarkdownTemplateAWSIam:
         format = '''
         # {{iam_type}} ({{name}})
 
-        | Items          | values                  |
-        | -------------- | ----------------------- |
-        | id             | {{data.id}}             |
-        | arn            | {{data.arn}}            |
-        | name           | {{data.name}}           |
-        | tags           | {{data.tags}}           |
-        | dependencies   | {{data.dependencies}}   |
+        | Items          | values                |
+        | -------------- | --------------------- |
+        | id             | {{data.id             | default("None")}} |
+        | arn            | {{data.arn            | default("None")}} |
+        | name           | {{data.name           | default("None")}} |
+        | tags           | {{data.tags           | default("None")}} |
+        | dependencies   | {{data.dependencies   | default("None")}} |
         '''
 
         template = Template(format)
@@ -125,20 +125,19 @@ class MarkdownTemplateAWSIam:
         return str(dst)
 
     #  aws_iam_policy_attachment
-
     def iam_policy_attachment_template(self, data: dict, name: str, iam_type: str) -> str:
         format = '''
         # {{iam_type}} ({{name}})
 
-        | Items          | values                  |
-        | -------------- | ----------------------- |
-        | id             | {{data.id}}             |
-        | name           | {{data.name}}           |
-        | policy_arn     | {{data.policy_arn}}     |
-        | tags           | {{data.tags}}           |
-        | roles          | {{data.roles}}          |
-        | users          | {{data.users}}          |
-        | dependencies   | {{data.dependencies}}   |
+        | Items          | values                |
+        | -------------- | --------------------- |
+        | id             | {{data.id             | default("None")}} |
+        | name           | {{data.name           | default("None")}} |
+        | policy_arn     | {{data.policy_arn     | default("None")}} |
+        | tags           | {{data.tags           | default("None")}} |
+        | roles          | {{data.roles          | default("None")}} |
+        | users          | {{data.users          | default("None")}} |
+        | dependencies   | {{data.dependencies   | default("None")}} |
         '''
 
         template = Template(format)

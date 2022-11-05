@@ -2,7 +2,7 @@ import argparse
 import json
 from logging import config, getLogger
 
-from service.aws import AWSService
+from src.service.aws import AWSService
 
 logger = getLogger(__name__)
 

@@ -14,16 +14,12 @@ def json_open(file_path: str) -> dict:
     return json.load(json_data)
 
 
-def parse(data: dict):
-    pass
-
-
 def main(args):
     logger.info(f'start tf-doc file: {args.file}')
-    # print(args.file)
-    # print(args.format)
     data = None
     output = ""
+
+    # file check
     if args.output == None:
         output = re.sub(".json", ".md", args.file)
     else:
@@ -35,7 +31,11 @@ def main(args):
         logger.error(e)
         exit(-1)
 
-    data = data.get("resources", {})
+    data = data.get("resources", [])
+
+    # soted by type
+    data = sorted(data, key=lambda x: x['type'])
+
     aws = AWSService()
     for d in data:
         instances = d.get("instances")

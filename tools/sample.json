@@ -1,65 +1,45 @@
 {
-    "schema_version": 1,
+    "schema_version": 0,
     "attributes": {
-        "arn": "arn:aws:ec2:us-east-1:862989290375:security-group/sg-0e6ff2e8a073a73db",
-        "description": "Managed by Terraform",
-        "egress": [
+        "access_logs": [
             {
-                "cidr_blocks": [
-                    "0.0.0.0/0"
-                ],
-                "description": "",
-                "from_port": 0,
-                "ipv6_cidr_blocks": [],
-                "prefix_list_ids": [],
-                "protocol": "-1",
-                "security_groups": [],
-                "self": false,
-                "to_port": 0
+                "bucket": "",
+                "enabled": false,
+                "prefix": ""
             }
         ],
-        "id": "sg-0e6ff2e8a073a73db",
-        "ingress": [
+        "arn": "arn:aws:elasticloadbalancing:us-east-1:616100519737:loadbalancer/app/backend-alb/8720db1a5fcaa6e5",
+        "arn_suffix": "app/backend-alb/8720db1a5fcaa6e5",
+        "dns_name": "backend-alb-178188086.us-east-1.elb.amazonaws.com",
+        "drop_invalid_header_fields": false,
+        "enable_deletion_protection": false,
+        "id": "arn:aws:elasticloadbalancing:us-east-1:616100519737:loadbalancer/app/backend-alb/8720db1a5fcaa6e5",
+        "idle_timeout": 60,
+        "internal": false,
+        "ip_address_type": "ipv4",
+        "load_balancer_type": "application",
+        "name": "backend-alb",
+        "security_groups": [
+            "sg-0867787121ae6dccc"
+        ],
+        "subnet_mapping": [
             {
-                "cidr_blocks": [
-                    "0.0.0.0/0"
-                ],
-                "description": "Allow traffic from public instances.security_group",
-                "from_port": 443,
-                "ipv6_cidr_blocks": [],
-                "prefix_list_ids": [],
-                "protocol": "tcp",
-                "security_groups": [],
-                "self": false,
-                "to_port": 443
+                "allocation_id": "",
+                "subnet_id": "subnet-02a0a302bb4fc7cff"
             },
             {
-                "cidr_blocks": [
-                    "0.0.0.0/0"
-                ],
-                "description": "Allow traffic from public instances.security_group",
-                "from_port": 80,
-                "ipv6_cidr_blocks": [],
-                "prefix_list_ids": [],
-                "protocol": "tcp",
-                "security_groups": [],
-                "self": false,
-                "to_port": 80
+                "allocation_id": "",
+                "subnet_id": "subnet-0e91376ea4771a175"
             }
         ],
-        "name": "Aleidy-us-east-1-dev-db-security",
-        "name_prefix": "",
-        "owner_id": "862989290375",
-        "revoke_rules_on_delete": false,
+        "subnets": [
+            "subnet-02a0a302bb4fc7cff",
+            "subnet-0e91376ea4771a175"
+        ],
         "tags": {
-            "Deployment_Method": "terraform",
-            "name": "Aleidy-us-east-1-dev-security_group"
+            "Name": "Backend ALB"
         },
-        "timeouts": null,
-        "vpc_id": "vpc-062aad044e883696e"
-    },
-    "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0=",
-    "dependencies": [
-        "module.vpc.aws_vpc.ale_vpc"
-    ]
+        "vpc_id": "vpc-0c12de6ae6d738134",
+        "zone_id": "Z35SXDOTRQ7X7K"
+    }
 }

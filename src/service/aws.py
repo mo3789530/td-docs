@@ -7,6 +7,8 @@ from src.provider.aws.rds import Rds
 from src.provider.aws.security_group import SecurityGroup
 from src.provider.aws.subnet import Subnet
 from src.provider.aws.vpc import Vpc
+from src.provider.aws.lb import Lb
+from src.template.awa.markdown.lb import MarkdownTemplateAWSLb
 from src.template.awa.markdown.ecs import MarkdownTemplateAWSEcs
 from src.template.awa.markdown.iam import MarkdownTemplateAWSIam
 from src.template.awa.markdown.rds import MarkdownTemplateAWSRds
@@ -36,8 +38,10 @@ class AWSService():
             return self.__aws_subnet_adapter(dic=dic, name=name, aws_tpye=aws_type)
         elif "vpc" in aws_type:
             return self.__aws_vpc_adapter(dic=dic, name=name, aws_tpye=aws_type)
-        elif "aws_security_group" in aws_type:
+        elif "security_group" in aws_type:
             return self.__aws_sg_adapter(dic=dic, name=name, aws_tpye=aws_type)
+        elif "lb" in aws_type:
+            return self.__aws_lb_adapter(dic=dic, name=name, aws_tpye=aws_type)
         else:
             return ""
 
@@ -76,3 +80,9 @@ class AWSService():
         if type(data) != dict:
             raise Exception("Error parsed data type")
         return pretty_markdwon(MarkdownTemplateAWSSg().create_markdown_facade(data=data, name=name, sg_type=aws_tpye))
+
+    def __aws_lb_adapter(self, dic: dict, name: str, aws_tpye: str) -> str:
+        data = Lb().parse(dic, aws_tpye)
+        if type(data) != dict:
+            raise Exception("Error parsed data type")
+        return pretty_markdwon(MarkdownTemplateAWSLb().create_markdown_facade(data=data, name=name, lb_type=aws_tpye))

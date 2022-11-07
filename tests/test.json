@@ -1854,6 +1854,241 @@
                     "create_before_destroy": true
                 }
             ]
+        },
+        {
+            "module": "module.target_group",
+            "mode": "managed",
+            "type": "aws_lb_target_group",
+            "name": "My_lb_Ale",
+            "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+            "instances": [
+                {
+                    "schema_version": 0,
+                    "attributes": {
+                        "arn": "arn:aws:elasticloadbalancing:us-east-1:862989290375:targetgroup/Aleidy-us-east-1-dev-targetGroup/64d94c72d12db6dc",
+                        "arn_suffix": "targetgroup/Aleidy-us-east-1-dev-targetGroup/64d94c72d12db6dc",
+                        "deregistration_delay": 300,
+                        "health_check": [
+                            {
+                                "enabled": true,
+                                "healthy_threshold": 2,
+                                "interval": 31,
+                                "matcher": "200-304",
+                                "path": "/",
+                                "port": "traffic-port",
+                                "protocol": "HTTP",
+                                "timeout": 30,
+                                "unhealthy_threshold": 3
+                            }
+                        ],
+                        "id": "arn:aws:elasticloadbalancing:us-east-1:862989290375:targetgroup/Aleidy-us-east-1-dev-targetGroup/64d94c72d12db6dc",
+                        "lambda_multi_value_headers_enabled": false,
+                        "load_balancing_algorithm_type": "round_robin",
+                        "name": "Aleidy-us-east-1-dev-targetGroup",
+                        "name_prefix": null,
+                        "port": 8080,
+                        "protocol": "HTTP",
+                        "proxy_protocol_v2": false,
+                        "slow_start": 0,
+                        "stickiness": [
+                            {
+                                "cookie_duration": 86400,
+                                "enabled": false,
+                                "type": "lb_cookie"
+                            }
+                        ],
+                        "tags": {},
+                        "target_type": "ip",
+                        "vpc_id": "vpc-062aad044e883696e"
+                    },
+                    "private": "bnVsbA==",
+                    "dependencies": [
+                        "module.load-balancer-security-group.aws_security_group.security_group",
+                        "module.load_balancer.aws_lb.ALB",
+                        "module.vpc.aws_subnet.public-1",
+                        "module.vpc.aws_subnet.public-2",
+                        "module.vpc.aws_subnet.public-3",
+                        "module.vpc.aws_vpc.ale_vpc"
+                    ]
+                }
+            ]
+        },
+        {
+            "module": "module.load_balancer",
+            "mode": "managed",
+            "type": "aws_lb",
+            "name": "ALB",
+            "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+            "instances": [
+                {
+                    "schema_version": 0,
+                    "attributes": {
+                        "access_logs": [
+                            {
+                                "bucket": "",
+                                "enabled": false,
+                                "prefix": ""
+                            }
+                        ],
+                        "arn": "arn:aws:elasticloadbalancing:us-east-1:862989290375:loadbalancer/app/Aleidy-us-east-1-dev-loadbalance/4a799f91dcf0baa2",
+                        "arn_suffix": "app/Aleidy-us-east-1-dev-loadbalance/4a799f91dcf0baa2",
+                        "customer_owned_ipv4_pool": "",
+                        "dns_name": "Aleidy-us-east-1-dev-loadbalance-1351280189.us-east-1.elb.amazonaws.com",
+                        "drop_invalid_header_fields": false,
+                        "enable_cross_zone_load_balancing": null,
+                        "enable_deletion_protection": false,
+                        "enable_http2": true,
+                        "id": "arn:aws:elasticloadbalancing:us-east-1:862989290375:loadbalancer/app/Aleidy-us-east-1-dev-loadbalance/4a799f91dcf0baa2",
+                        "idle_timeout": 60,
+                        "internal": false,
+                        "ip_address_type": "ipv4",
+                        "load_balancer_type": "application",
+                        "name": "Aleidy-us-east-1-dev-loadbalance",
+                        "name_prefix": null,
+                        "security_groups": [
+                            "sg-0539c2344e5fdcd5f"
+                        ],
+                        "subnet_mapping": [
+                            {
+                                "allocation_id": "",
+                                "outpost_id": "",
+                                "private_ipv4_address": "",
+                                "subnet_id": "subnet-039065fe682436f48"
+                            },
+                            {
+                                "allocation_id": "",
+                                "outpost_id": "",
+                                "private_ipv4_address": "",
+                                "subnet_id": "subnet-0520edbe8c42d9444"
+                            },
+                            {
+                                "allocation_id": "",
+                                "outpost_id": "",
+                                "private_ipv4_address": "",
+                                "subnet_id": "subnet-0ffed411294b85131"
+                            }
+                        ],
+                        "subnets": [
+                            "subnet-039065fe682436f48",
+                            "subnet-0520edbe8c42d9444",
+                            "subnet-0ffed411294b85131"
+                        ],
+                        "tags": {
+                            "Deployment_Method": "terraform",
+                            "name": "Aleidy-us-east-1-dev-loadbalancer"
+                        },
+                        "timeouts": null,
+                        "vpc_id": "vpc-062aad044e883696e",
+                        "zone_id": "Z35SXDOTRQ7X7K"
+                    },
+                    "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",
+                    "dependencies": [
+                        "module.load-balancer-security-group.aws_security_group.security_group",
+                        "module.vpc.aws_subnet.public-1",
+                        "module.vpc.aws_subnet.public-2",
+                        "module.vpc.aws_subnet.public-3"
+                    ]
+                }
+            ]
+        },
+        {
+            "module": "module.load_balancer",
+            "mode": "managed",
+            "type": "aws_lb_listener",
+            "name": "port-80-traffic",
+            "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+            "instances": [
+                {
+                    "schema_version": 0,
+                    "attributes": {
+                        "arn": "arn:aws:elasticloadbalancing:us-east-1:862989290375:listener/app/Aleidy-us-east-1-dev-loadbalance/4a799f91dcf0baa2/b4949ac9cb838fcd",
+                        "certificate_arn": null,
+                        "default_action": [
+                            {
+                                "authenticate_cognito": [],
+                                "authenticate_oidc": [],
+                                "fixed_response": [],
+                                "forward": [],
+                                "order": 1,
+                                "redirect": [],
+                                "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:862989290375:targetgroup/Aleidy-us-east-1-dev-targetGroup/64d94c72d12db6dc",
+                                "type": "forward"
+                            }
+                        ],
+                        "id": "arn:aws:elasticloadbalancing:us-east-1:862989290375:listener/app/Aleidy-us-east-1-dev-loadbalance/4a799f91dcf0baa2/b4949ac9cb838fcd",
+                        "load_balancer_arn": "arn:aws:elasticloadbalancing:us-east-1:862989290375:loadbalancer/app/Aleidy-us-east-1-dev-loadbalance/4a799f91dcf0baa2",
+                        "port": 80,
+                        "protocol": "HTTP",
+                        "ssl_policy": "",
+                        "timeouts": null
+                    },
+                    "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsicmVhZCI6NjAwMDAwMDAwMDAwfX0=",
+                    "dependencies": [
+                        "module.load-balancer-security-group.aws_security_group.security_group",
+                        "module.load_balancer.aws_lb.ALB",
+                        "module.target_group.aws_lb_target_group.My_lb_Ale",
+                        "module.vpc.aws_subnet.public-1",
+                        "module.vpc.aws_subnet.public-2",
+                        "module.vpc.aws_subnet.public-3"
+                    ]
+                }
+            ]
+        },
+        {
+            "module": "module.load_balancer",
+            "mode": "managed",
+            "type": "aws_lb_listener_rule",
+            "name": "port-80-rule",
+            "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+            "instances": [
+                {
+                    "schema_version": 0,
+                    "attributes": {
+                        "action": [
+                            {
+                                "authenticate_cognito": [],
+                                "authenticate_oidc": [],
+                                "fixed_response": [],
+                                "forward": [],
+                                "order": 1,
+                                "redirect": [],
+                                "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:862989290375:targetgroup/Aleidy-us-east-1-dev-targetGroup/64d94c72d12db6dc",
+                                "type": "forward"
+                            }
+                        ],
+                        "arn": "arn:aws:elasticloadbalancing:us-east-1:862989290375:listener-rule/app/Aleidy-us-east-1-dev-loadbalance/4a799f91dcf0baa2/b4949ac9cb838fcd/28af8faf6cf2ea8e",
+                        "condition": [
+                            {
+                                "host_header": [
+                                    {
+                                        "values": [
+                                            "test1.aleidy.kiastests.com"
+                                        ]
+                                    }
+                                ],
+                                "http_header": [],
+                                "http_request_method": [],
+                                "path_pattern": [],
+                                "query_string": [],
+                                "source_ip": []
+                            }
+                        ],
+                        "id": "arn:aws:elasticloadbalancing:us-east-1:862989290375:listener-rule/app/Aleidy-us-east-1-dev-loadbalance/4a799f91dcf0baa2/b4949ac9cb838fcd/28af8faf6cf2ea8e",
+                        "listener_arn": "arn:aws:elasticloadbalancing:us-east-1:862989290375:listener/app/Aleidy-us-east-1-dev-loadbalance/4a799f91dcf0baa2/b4949ac9cb838fcd",
+                        "priority": 99
+                    },
+                    "private": "bnVsbA==",
+                    "dependencies": [
+                        "module.load-balancer-security-group.aws_security_group.security_group",
+                        "module.load_balancer.aws_lb.ALB",
+                        "module.load_balancer.aws_lb_listener.port-80-traffic",
+                        "module.target_group.aws_lb_target_group.My_lb_Ale",
+                        "module.vpc.aws_subnet.public-1",
+                        "module.vpc.aws_subnet.public-2",
+                        "module.vpc.aws_subnet.public-3"
+                    ]
+                }
+            ]
         }
     ]
 }

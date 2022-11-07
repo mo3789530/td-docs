@@ -1,8 +1,11 @@
+import json
 import pprint
 import re
 
 
-def pretty_json(txt: str) -> str:
+def pretty_json(txt) -> str:
+    if type(txt) == str and len(txt) > 0:
+        txt = json.loads(txt)
     txt = "<pre>" + pprint.pformat(txt, 1) + "</pre>"
     return re.sub("\n", "<br>", txt)
 

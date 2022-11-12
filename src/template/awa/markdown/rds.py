@@ -13,7 +13,7 @@ class MarkdownTemplateAWSRds:
     # aws_rds_cluster
     def rds_cluster_template(self, data: dict, name: str, rds_type: str) -> str:
         format = '''
-        # {{rds_type}} {{name}}
+        # {{rds_type}} ({{name}})
 
         | Items                           | values                                 |
         | ------------------------------- | -------------------------------------- |
@@ -41,13 +41,13 @@ class MarkdownTemplateAWSRds:
         | global_cluster_identifier       | {{data.global_cluster_identifier       | default("None")}} |
         '''
         template = Template(format)
-        dst = template.render(data=data, role_name=name, rds_type=rds_type)
+        dst = template.render(data=data, name=name, rds_type=rds_type)
         return str(dst)
 
     # aws_rds_cluster_instance
     def rds_cluster_instance_template(self, data: dict, name: str, rds_type: str) -> str:
         format = '''
-        # {{rds_type}} {{name}}
+        # {{rds_type}} ({{name}})
 
         | Items                           | values                                 |
         | ------------------------------- | -------------------------------------- |
@@ -85,13 +85,14 @@ class MarkdownTemplateAWSRds:
 
         '''
         template = Template(format)
-        dst = template.render(data=data, role_name=name, rds_type=rds_type)
+        dst = template.render(data=data, name=name, rds_type=rds_type)
         return str(dst)
 
     # aws_rds_cluster_parameter_group
     def rds_cluster_parameter_group_template(self, data: dict, name: str, rds_type: str) -> str:
         format = '''
-        # {{rds_type}} {{name}}
+        # {{rds_type}} ({{name}})
+
         | Items       | values             |
         | ----------- | ------------------ |
         | arn         | {{data.arn         | default("None")}} |
@@ -104,13 +105,14 @@ class MarkdownTemplateAWSRds:
 
         '''
         template = Template(format)
-        dst = template.render(data=data, role_name=name, rds_type=rds_type)
+        dst = template.render(data=data, name=name, rds_type=rds_type)
         return str(dst)
 
     # aws_db_instance
     def db_instance_template(self, data: dict, name: str, rds_type: str) -> str:
         format = '''
-        # {{rds_type}} {{name}}
+        # {{rds_type}} ({{name}})
+
         | Items                           | values                                 |
         | ------------------------------- | -------------------------------------- |
         | id                              | {{data.id                              | default("None")}} |
@@ -145,13 +147,14 @@ class MarkdownTemplateAWSRds:
         | dependencies                    | {{data.dependencies                    | default("None")}} |
         '''
         template = Template(format)
-        dst = template.render(data=data, role_name=name, rds_type=rds_type)
+        dst = template.render(data=data, name=name, rds_type=rds_type)
         return str(dst)
 
     # aws_db_subnet_group
     def db_subnet_group_template(self, data: dict, name: str, rds_type: str) -> str:
         format = '''
-        # {{rds_type}} {{name}}
+        # {{rds_type}} ({{name}})
+        
         | Items        | values              |
         | ------------ | ------------------- |
         | id           | {{data.id           | default("None")}} |
@@ -164,7 +167,7 @@ class MarkdownTemplateAWSRds:
         | dependencies | {{data.dependencies | default("None")}} |
         '''
         template = Template(format)
-        dst = template.render(data=data, role_name=name, rds_type=rds_type)
+        dst = template.render(data=data, name=name, rds_type=rds_type)
         return str(dst)
 
     def unknown_template(self, data: dict, name: str, rds_type: str) -> str:

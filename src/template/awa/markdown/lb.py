@@ -13,7 +13,7 @@ class MarkdownTemplateAWSLb:
     # aws_lb
     def lb_template(self, data: dict, name: str, lb_type: str) -> str:
         format = '''
-        # aws_lb {{name| default("None")}}
+        # aws_lb ({{name}})
         
         | Items                            | values                                  |
         | -------------------------------- | --------------------------------------- |
@@ -42,13 +42,13 @@ class MarkdownTemplateAWSLb:
         | zone_id                          | {{data.zone_id                          | default("None")}} |
         '''
         template = Template(format)
-        dst = template.render(data=data, role_name=name, lb_type=lb_type)
+        dst = template.render(data=data, name=name, lb_type=lb_type)
         return str(dst)
 
     # aws_lb_listener
     def lb_listener_template(self, data: dict, name: str, lb_type: str) -> str:
         format = '''
-        # aws_lb_listener {{name| default("None")}}
+        # aws_lb_listener ({{name}})
 
         | Items             | values                   |
         | ----------------- | ------------------------ |
@@ -63,13 +63,13 @@ class MarkdownTemplateAWSLb:
         | timeouts          | {{data.timeouts          | default("None")}} |
         '''
         template = Template(format)
-        dst = template.render(data=data, role_name=name, lb_type=lb_type)
+        dst = template.render(data=data, name=name, lb_type=lb_type)
         return str(dst)
 
     # aws_lb_listener_rule
     def lb_listener_rule_template(self, data: dict, name: str, lb_type: str) -> str:
         format = '''
-        # aws_lb_listener_rule {{name| default("None")}}
+        # aws_lb_listener_rule ({{name}})
 
         | Items        | values              |
         | ------------ | ------------------- |
@@ -81,13 +81,13 @@ class MarkdownTemplateAWSLb:
         | priority     | {{data.priority     | default("None")}} |
         '''
         template = Template(format)
-        dst = template.render(data=data, role_name=name, lb_type=lb_type)
+        dst = template.render(data=data, name=name, lb_type=lb_type)
         return str(dst)
 
     # aws_lb_target_group
     def lb_target_group_template(self, data: dict, name: str, lb_type: str) -> str:
         format = '''
-        # aws_lb_listener_rule {{name| default("None")}}
+        # aws_lb_listener_rule ({{name}})
 
         | Items                              | values                                    |
         | ---------------------------------- | ----------------------------------------- |
@@ -110,13 +110,13 @@ class MarkdownTemplateAWSLb:
         | vpc_id                             | {{data.vpc_id                             | default("None")}} |
         '''
         template = Template(format)
-        dst = template.render(data=data, role_name=name, lb_type=lb_type)
+        dst = template.render(data=data, name=name, lb_type=lb_type)
         return str(dst)
 
     # aws_alb
     def alb_template(self, data: dict, name: str, lb_type: str) -> str:
         format = '''
-        # aws_alb {{name| default("None")}}
+        # aws_alb ({{name}})
 
         | Items                      | values                            |
         | -------------------------- | --------------------------------- |
@@ -140,13 +140,13 @@ class MarkdownTemplateAWSLb:
         | zone_id                    | {{data.zone_id                    | default("None")}} |
         '''
         template = Template(format)
-        dst = template.render(data=data, role_name=name, lb_type=lb_type)
+        dst = template.render(data=data, name=name, lb_type=lb_type)
         return str(dst)
 
     # aws_elb
     def elb_template(self, data: dict, name: str, lb_type: str) -> str:
         format = '''
-        # aws_elb {{name| default("None")}}
+        # aws_elb ({{name}})
 
         | Items                       | values                             |
         | --------------------------- | ---------------------------------- |
@@ -174,7 +174,7 @@ class MarkdownTemplateAWSLb:
         | zone_id                     | {{data.zone_id                     | default("None")}} |
         '''
         template = Template(format)
-        dst = template.render(data=data, role_name=name, lb_type=lb_type)
+        dst = template.render(data=data, name=name, lb_type=lb_type)
         return str(dst)
 
     def unknown_template(self, data: dict, name: str, lb_type: str) -> str:

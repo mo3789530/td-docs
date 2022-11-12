@@ -13,7 +13,7 @@ class MarkdownTemplateAWSIam:
     # aws_iam_role
     def role_template(self, data: dict, name: str, iam_type: str) -> str:
         format = '''
-        # {{iam_type}} ({{role_name}})
+        # {{iam_type}} ({{name}})
 
         | Items              | values                    |
         | ------------------ | ------------------------- |
@@ -24,7 +24,7 @@ class MarkdownTemplateAWSIam:
         | dependencies       | {{data.dependencies       | default("None") }} |
         '''
         template = Template(format)
-        dst = template.render(data=data, role_name=name, iam_type=iam_type)
+        dst = template.render(data=data, name=name, iam_type=iam_type)
         return str(dst)
 
     # aws_iam_policy

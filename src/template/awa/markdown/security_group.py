@@ -9,7 +9,8 @@ class MarkdownTemplateAWSSg:
     # aws_security_group
     def sg_template(self, data: dict, name: str, sg_type: str) -> str:
         format = '''
-        # aws_security_group {{name| default("None")}}
+        # aws_security_group ({{name}})
+        
         | Items                  | values                        |
         | ---------------------- | ----------------------------- |
         | arn                    | {{data.arn                    | default("None")}} |
@@ -26,7 +27,7 @@ class MarkdownTemplateAWSSg:
         | vpc_id                 | {{data.vpc_id                 | default("None")}} |
         '''
         template = Template(format)
-        dst = template.render(data=data, role_name=name, sg_type=sg_type)
+        dst = template.render(data=data, name=name, sg_type=sg_type)
         return str(dst)
 
     def unknown_template(self, data: dict, name: str, sg_type: str) -> str:

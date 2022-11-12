@@ -13,7 +13,7 @@ class MarkdownTemplateAWSEcs:
     # aws_ecs_cluster
     def ecs_cluster_template(self, data: dict, name: str, ecs_type: str) -> str:
         format = '''
-        # aws_ecs_cluster ({name})  
+        # aws_ecs_cluster ({{name}})
 
         | Items                              | values                                    |
         | ---------------------------------- | ----------------------------------------- |
@@ -37,7 +37,7 @@ class MarkdownTemplateAWSEcs:
     # aws_ecs_service
     def ecs_service_template(self, data: dict, name: str, ecs_type: str) -> str:
         format = '''
-        # aws_ecs_service ({name})  
+        # aws_ecs_service ({{name}})
 
         | Items                              | values                                    |
         | ---------------------------------- | ----------------------------------------- |
@@ -82,7 +82,7 @@ class MarkdownTemplateAWSEcs:
     # aws_ecs_task_definition
     def ecs_task_definition_template(self, data: dict, name: str, ecs_type: str) -> str:
         format = '''
-        # aws_ecs_task_definition ({name})  
+        # aws_ecs_task_definition ({{name}}) 
 
         | Items                    | values                          |
         | ------------------------ | ------------------------------- |
@@ -105,7 +105,6 @@ class MarkdownTemplateAWSEcs:
         | placement_constraints    | {{data.placement_constraints    | default("None") }} |
         | requires_compatibilities | {{data.requires_compatibilities | default("None") }} |
         | dependencies             | {{data.dependencies             | default("None") }} |
-
 
         '''
 

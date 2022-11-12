@@ -9,7 +9,8 @@ class MarkdownTemplateAWSSubnet:
     # aws_subnet
     def subnet_template(self, data: dict, name: str, subnet_type: str) -> str:
         format = '''
-        # aws_subnet {{name| default("None")}}
+        # aws_subnet ({{name}})
+        
         | Items                           | values                                 |
         | ------------------------------- | -------------------------------------- |
         | arn                             | {{data.arn                             | default("None")}} |
@@ -28,7 +29,7 @@ class MarkdownTemplateAWSSubnet:
         | vpc_id                          | {{data.vpc_id                          | default("None")}} |
         '''
         template = Template(format)
-        dst = template.render(data=data, role_name=name, vpc_type=subnet_type)
+        dst = template.render(data=data, name=name, vpc_type=subnet_type)
         return str(dst)
 
     def unknown_template(self, data: dict, name: str, subnet_type: str) -> str:

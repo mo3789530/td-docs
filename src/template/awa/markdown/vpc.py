@@ -10,7 +10,8 @@ class MarkdownTemplateAWSVpc:
     # aws_vpc
     def vpc_template(self, data: dict, name: str, vpc_type: str) -> str:
         format = '''
-        # aws_vpc {{name| default("None")}}
+        # aws_vpc ({{name}})
+        
         | Items                            | values                                  |
         | -------------------------------- | --------------------------------------- |
         | arn                              | {{data.arn                              | default("None")}} |
@@ -33,7 +34,7 @@ class MarkdownTemplateAWSVpc:
         | tags                             | {{data.tags                             | default("None")}} |
         '''
         template = Template(format)
-        dst = template.render(data=data, role_name=name, vpc_type=vpc_type)
+        dst = template.render(data=data, name=name, vpc_type=vpc_type)
         return str(dst)
 
     def unknown_template(self, data: dict, name: str, vpc_type: str) -> str:

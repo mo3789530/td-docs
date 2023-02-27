@@ -13,3 +13,4 @@ def is_exist_md(file_name: str):
 def write_md(output: str, dst: str):
     with open(output, mode='a') as f:
         f.write(dst)
+        f.write("\n")

@@ -8,13 +8,15 @@ class TestState(unittest.TestCase):
 
     json = '''
     {
-        "version": 4,
-        "terraform_version": "0.13.3",
-        "serial": 9,
-        "lineage": "4afbb278-c8a6-6e81-4ed6-73a3d56bded2",
-        "outputs": {
-        },
-        "resources": []
+        "format_version": "1.0",
+        "terraform_version": "1.3.9",
+        "values": {
+            "root_module": {
+                "resources": [
+                    {}
+                ]
+            }
+        }
     }
     '''
 
@@ -22,7 +24,8 @@ class TestState(unittest.TestCase):
         # print(self.json)
         parser = state.State()
         dic = parser.parse(json.loads(self.json))
-        self.assertEqual(dic["version"], 4)
+        print(dic)
+        self.assertEqual(dic["version"], '1.0')
 
 
 if __name__ == "__main__":

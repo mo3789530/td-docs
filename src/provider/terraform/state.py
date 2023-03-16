@@ -1,10 +1,9 @@
-
 class State:
 
-    version = "version"
+    version = "format_version"
     terraform_version = "terraform_version"
     value = "value"
-    serial = "serial"
+    root = "root_module"
     resources = "resources"
 
     def __init__(self) -> None:
@@ -13,12 +12,11 @@ class State:
     def parse(self, json) -> dict:
         version = json.get(self.version)
         terraform_version = json.get(self.terraform_version)
-        serial = json.get(self.serial)
-        resources = json.get(self.resources)
+        resources = json.get(self.value, {}).get(
+            self.root, {}).get(self.resources, {})
 
         return {
             "version": version,
             "terraform_version": terraform_version,
-            "serial": serial,
             "resources": resources
         }

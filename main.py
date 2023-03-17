@@ -5,6 +5,8 @@ from logging import config, getLogger
 
 from src.libs.md import is_exist_md, write_md
 from src.service.aws import AWSService
+from src.provider.terraform.state import State
+from src.provider.terraform.tf_resource import Resources
 
 logger = getLogger(__name__)
 
@@ -31,19 +33,26 @@ def main(args):
         logger.error(e)
         exit(-1)
 
+    data = State().parse(data)
+    print(data)
+    print("---------------------")
     data = data.get("resources", [])
 
     # soted by type
     data = sorted(data, key=lambda x: x['type'])
 
+    print(data)
+
     aws = AWSService()
     for d in data:
-        instances = d.get("instances")
-        if len(instances) >= 1:
-            for i in instances:
-                dst = aws.service_bridge(
-                    i, d.get("name", ""), d.get("type", ""))
-                write_md(output=output, dst=dst)
+        logger.info(d)
+        r = Resources().parse(d)
+        print("---------------------")
+        print(d)
+
+        dst = aws.service_bridge(
+            d.get("values", {}), r.get("name", ""), r.get("type", ""))
+        write_md(output=output, dst=dst)
 
 
 if __name__ == "__main__":

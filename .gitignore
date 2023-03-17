@@ -2,3 +2,4 @@
 *.pyc
 log.txt
 tests/test.md
+tests/test.tfstate.md

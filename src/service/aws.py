@@ -8,6 +8,8 @@ from src.provider.aws.security_group import SecurityGroup
 from src.provider.aws.subnet import Subnet
 from src.provider.aws.vpc import Vpc
 from src.provider.aws.lb import Lb
+from src.provider.undefined import Undefined
+from src.template.awa.common import MarkdownTemplateCommon
 from src.template.awa.markdown.lb import MarkdownTemplateAWSLb
 from src.template.awa.markdown.ecs import MarkdownTemplateAWSEcs
 from src.template.awa.markdown.iam import MarkdownTemplateAWSIam
@@ -20,13 +22,14 @@ logger = getLogger("src").getChild(__name__)
 
 
 class AWSService():
-    # ecs = ECS()
-    # ec2 = ec2.EC2()
 
     def __init__(self) -> None:
         pass
 
     def service_bridge(self, dic: dict, name: str, aws_type: str) -> str:
+        logger.debug(aws_type)
+        return self.__aws_common_adapter(dic=dic, name=name, aws_type=aws_type)
+
         if "iam" in aws_type:
             logger.debug("iam_type " + aws_type)
             return self.__aws_iam_adapter(dic=dic, name=name, aws_tpye=aws_type)
@@ -44,6 +47,12 @@ class AWSService():
             return self.__aws_lb_adapter(dic=dic, name=name, aws_tpye=aws_type)
         else:
             return ""
+
+    def __aws_common_adapter(self, dic: dict, name: str, aws_type: str) -> str:
+        data = Undefined().parser(json_data=dic, type_str=aws_type)
+        if type(data) != dict:
+            raise Exception("Error parsed data type")
+        return pretty_markdwon(MarkdownTemplateCommon().create_markdown_facade(data=data, name=name, common_type=aws_type))
 
     def __aws_iam_adapter(self, dic: dict, name: str, aws_tpye: str) -> str:
         data = Iam().parse(dic, aws_tpye)

@@ -2,7 +2,7 @@ class State:
 
     version = "format_version"
     terraform_version = "terraform_version"
-    value = "value"
+    value = "values"
     root = "root_module"
     resources = "resources"
 

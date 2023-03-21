@@ -33,7 +33,7 @@ class Vpc:
         assign_generated_ipv6_cidr_block = "assign_generated_ipv6_cidr_block"
         attr = json.get(attributes, {})
 
-        return {
+        return ({
             id: attr.get(id),
             arn: attr.get(arn),
             tags: attr.get(tags),
@@ -53,12 +53,12 @@ class Vpc:
             assign_generated_ipv6_cidr_block: attr.get(assign_generated_ipv6_cidr_block),
             ipv6_association_id: attr.get(ipv6_association_id),
 
-        }
+        }, vpc_type)
 
     # unknow type
     def unknown_type(self, json: dict, vpc_type: str):
         logger.warning(f"{vpc_type} is not defined")
-        return json
+        return (json, vpc_type)
 
     def parse(self, json: dict, vpc_type: str):
         switcher = {

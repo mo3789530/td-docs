@@ -18,8 +18,8 @@ class Undefined:
                 v = pretty_json(json.dumps(v))
             elif type(v) is list:
                 v = pretty_array(v)
-            elif v is "null" or v is None:
+            elif v == "null" or v == None:
                 v = "None"
-            data[k] = v if v is not "" else "None"
+            data[k] = v if v != "" else "None"
 
         return data

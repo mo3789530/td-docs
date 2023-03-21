@@ -11,7 +11,7 @@ class Subnet:
         pass
 
     # aws_subnet
-    def subnet_parse(self, json: dict, subnet_type: str) -> dict:
+    def subnet_parse(self, json: dict, subnet_type: str) -> tuple[dict, str]:
         attributes = "attributes"
         arn = "arn"
         assign_ipv6_address_on_creation = "assign_ipv6_address_on_creation"
@@ -46,14 +46,14 @@ class Subnet:
             timeouts: attrs.get(timeouts),
             vpc_id: attrs.get(vpc_id),
             dependencies: pretty_json(json.get(dependencies, []))
-        }
+        }, subnet_type
 
     # unknow type
-    def unknown_type(self, json: dict, subnet_type: str) -> dict:
+    def unknown_type(self, json: dict, subnet_type: str) -> tuple[dict, str]:
         logger.warning(f"{subnet_type} is not defined")
-        return json
+        return (json, None)
 
-    def parse(self, json: dict, subnet_type: str) -> dict:
+    def parse(self, json: dict, subnet_type: str) -> tuple[dict, str]:
         switcher = {
             "aws_subnet": self.subnet_parse
         }

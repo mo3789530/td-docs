@@ -10,7 +10,7 @@ class SecurityGroup:
         pass
 
     # aws_security_group
-    def security_group_parse(self, json: dict, sg_type: str) -> dict:
+    def security_group_parse(self, json: dict, sg_type: str) -> tuple[dict, str]:
         attributes = "attributes"
         arn = "arn"
         description = "description"
@@ -42,14 +42,14 @@ class SecurityGroup:
             timeouts: attrs.get(timeouts),
             vpc_id: attrs.get(vpc_id),
             dependencies: pretty_array(json.get(dependencies, []))
-        }
+        }, sg_type
 
     # unknow type
-    def unknown_type(self, json: dict, sg_type: str) -> dict:
+    def unknown_type(self, json: dict, sg_type: str) -> tuple[dict, str]:
         logger.warning(f"{sg_type} is not defined")
-        return json
+        return json, None
 
-    def parse(self, json: dict, sg_type: str) -> dict:
+    def parse(self, json: dict, sg_type: str) -> tuple[dict, str]:
         switcher = {
             "aws_security_group": self.security_group_parse
         }

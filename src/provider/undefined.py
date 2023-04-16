@@ -24,7 +24,6 @@ class Undefined:
         elif type(data) is list:
             v = []
             for d in data:
-                print("aaaaaaaa")
                 tmp = self.format(d)
                 v.append(tmp)
             v = pretty_array(v)

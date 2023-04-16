@@ -3,3 +3,4 @@
 log.txt
 tests/test.md
 tests/test.tfstate.md
+tests/test.tfstate.html

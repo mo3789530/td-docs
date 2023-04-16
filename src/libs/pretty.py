@@ -18,5 +18,6 @@ def pretty_markdwon(txt: str) -> str:
 
 
 def pretty_array(array: list) -> str:
-    txt = pprint.pformat(array, 1)
+    txt = pprint.pformat(array, 1, width=300)
+    txt = re.sub("'", "", txt)
     return re.sub("\n", "<br>", txt)

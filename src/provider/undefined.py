@@ -10,16 +10,25 @@ class Undefined:
     def __init__(self) -> None:
         pass
 
-    def parser(seld, json_data: dict, type_str: str):
+    def parser(self, json_data: dict, type_str: str):
         data = {}
         for k in json_data.keys():
-            v = json_data[k]
-            if type(v) is dict:
-                v = pretty_json(json.dumps(v))
-            elif type(v) is list:
-                v = pretty_array(v)
-            elif v == "null" or v == None:
-                v = "None"
+            v = self.format(json_data[k])
             data[k] = v if v != "" else "None"
-
         return data
+
+    def format(self, data: any):
+        v = None
+        if type(data) is dict:
+            v = pretty_json(json.dumps(data))
+        elif type(data) is list:
+            v = []
+            for d in data:
+                print("aaaaaaaa")
+                tmp = self.format(d)
+                v.append(tmp)
+            v = pretty_array(v)
+        elif v == "null" or v == None:
+            v = "None"
+
+        return v

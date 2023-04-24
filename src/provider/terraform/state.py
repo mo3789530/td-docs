@@ -9,11 +9,22 @@ class State:
     def __init__(self) -> None:
         pass
 
+    # def parse(self, json) -> dict:
+    #     version = json.get(self.version)
+    #     terraform_version = json.get(self.terraform_version)
+    #     resources = json.get(self.value, {}).get(
+    #         self.root, {}).get(self.resources, {})
+
+    #     return {
+    #         "version": version,
+    #         "terraform_version": terraform_version,
+    #         "resources": resources
+    #     }
+
     def parse(self, json) -> dict:
         version = json.get(self.version)
         terraform_version = json.get(self.terraform_version)
-        resources = json.get(self.value, {}).get(
-            self.root, {}).get(self.resources, {})
+        resources = json.get(self.resources, [])
 
         return {
             "version": version,

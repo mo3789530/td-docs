@@ -45,8 +45,7 @@ def main(args):
         logger.error(e)
         exit(-1)
 
-    data = State().parse(data)
-    data = data.get("resources", [])
+    data = State().parse(data).get("resources", [])
 
     # soted by type
     data = sorted(data, key=lambda x: x['type'])
@@ -58,9 +57,10 @@ def main(args):
         r = Resources().parse(d)
 
         dst = aws.service_bridge(
-            d.get("values", {}), r.get("name", ""), r.get("type", "")
+            r.get("attributes", {}), r.get("name", ""), r.get("type", "")
         )
         result += dst
+        result += "\n"
 
     output(file=args.file, output=args.output, format=args.format, data=result)
 

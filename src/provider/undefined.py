@@ -22,11 +22,7 @@ class Undefined:
         if type(data) is dict:
             v = pretty_json(json.dumps(data))
         elif type(data) is list:
-            v = []
-            for d in data:
-                tmp = self.format(d)
-                v.append(tmp)
-            v = pretty_array(v)
+            v = pretty_json(json.dumps(data))
         elif v == "null" or v == None:
             v = "None"
 

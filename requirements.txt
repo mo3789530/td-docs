@@ -2,3 +2,4 @@ Jinja2
 uvicorn
 fastapi
 markdown
+boto3

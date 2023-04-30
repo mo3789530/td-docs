@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.spa.static import SPAStaticFiles
-from src.router import health
+from src.router import health, state
 
 app = FastAPI()
 
@@ -19,7 +19,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(health.router, prefix="/api")
+app.include_router(state.router, prefix="/tf")
+app.include_router(health.router, prefix="/health")
 app.mount("/", SPAStaticFiles(directory="./ui/build", html=True), name="ui")
 
 

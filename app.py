@@ -21,7 +21,7 @@ app.add_middleware(
 
 app.include_router(state.router, prefix="/tf")
 app.include_router(health.router, prefix="/health")
-app.mount("/", SPAStaticFiles(directory="./ui/build", html=True), name="ui")
+app.mount("/", SPAStaticFiles(directory="./ui/out", html=True), name="ui")
 
 
 if __name__ == '__main__':

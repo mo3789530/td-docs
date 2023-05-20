@@ -3,3 +3,4 @@ uvicorn
 fastapi
 markdown
 boto3
+openpyxl

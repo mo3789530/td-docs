@@ -1,4 +1,4 @@
-# TODO create write csv or excel format
+# create write csv or excel format
 import openpyxl
 
 class ExelWriter:
@@ -22,11 +22,18 @@ class ExelWriter:
             return False
 
     def write_sheet(self, name, dic):
-        pass 
-
-    def add_sheet(self, name, dic):
         if self.is_created_sheet(name) == False:
             self.workbook.create_sheet(title=name)
         sheet = self.workbook[name]
         for key, value in dic.items():
             sheet[key] = value
+
+    def add_sheet(self, name, dic):
+        index = 0
+        if self.is_created_sheet(name) == False:
+            self.workbook.create_sheet(title=name)
+        sheet = self.workbook[name]
+        index = sheet.max_row + 1
+        for key, value in dic.items():
+            sheet.cell(row=index, column=1).value = key
+            sheet.cell(row=index, column=2).value = value

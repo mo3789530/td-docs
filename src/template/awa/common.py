@@ -7,19 +7,19 @@ logger = getLogger("src").getChild(__name__)  # type: ignore
 
 class MarkdownTemplateCommon:
 
-    def common_template(self, data: dict, name: str, c_type: str) -> str:
+    def common_template(self, data: dict, c_type: str) -> str:
         txt = ""
         for d in data.keys():
             txt += f'| {d} | {data.get(d, "None")} | \n'
         format = '''
-# {{c_type}} {{name}} 
+# {{c_type}}
 | Items                            | values                                  |
 | -------------------------------- | --------------------------------------- |
 '''
         format += txt
         template = Template(format)
-        dst = template.render(data=data, name=name, c_type=c_type)
+        dst = template.render(data=data, c_type=c_type)
         return str(dst)
 
-    def create_markdown_facade(self, data: dict, name: str, common_type: str) -> str:
-        return self.common_template(data=data, name=name, c_type=common_type)
+    def create_markdown_facade(self, data: dict, common_type: str) -> str:
+        return self.common_template(data=data, c_type=common_type)

@@ -16,8 +16,11 @@ class AWSService():
 
     def service_bridge(self, dic: list, format: Format, filename: str) -> str:
         res = []
+        pretty = False
+        if format == format.MD or format == Format.HTML:
+            pretty = True
         for d in dic:
-            data = CommonParser().parser(json_data=d.get("attributes", {}), type_str=d.get("type", ""))
+            data = CommonParser().parser(json_data=d.get("attributes", {}), type_str=d.get("type", ""), pretty=pretty)
             if type(data) != dict:
                 raise Exception("Error parsed data type")
             res.append(data)
@@ -31,9 +34,29 @@ class AWSService():
 
     
     def __create_markdown(self, data: list, name: str) -> str:
-        pass
+        dst = ""
+        for d in data:
+            dst += pretty_markdwon(MarkdownTemplateCommon().create_markdown_facade(data=d, common_type=d['type']))
+            dst += "\n"
+        
+        output(file=args.file, output=args.output, format=args.format, data=result)
 
 
+    def output(file: str, output: Optional[str], format: Optional[str], data: str):
+        # file check
+        if output == None:
+            if format == "html":
+                output = re.sub(".json", ".html", file)
+            else:
+                output = re.sub(".json", ".md", file)
+                is_exist_md(output)
+        else:
+            output = output
+
+        if format == "html":
+            save(output=output, html=md_to_html(data))
+        else:
+            write_md(output=output, dst=data)
 
     def __aws_common_adapter(self, dic: list, name: str, aws_type: str, format: Format) -> str:
         data = CommonParser().parser(json_data=dic, type_str=aws_type)

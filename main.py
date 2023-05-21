@@ -10,6 +10,7 @@ from src.service.aws import AWSService
 from src.provider.terraform.state import State
 from src.provider.terraform.tf_resource import Resources
 from src.libs.html import md_to_html, save
+from src.template.format import Format
 
 logger = getLogger(__name__)
 
@@ -53,17 +54,21 @@ def main(args):
 
     aws = AWSService()
     result = ""
+    aws.service_bridge(data, Format.XLSX)
     for d in data:
         logger.info(d)
         r = Resources().parse(d)
 
         dst = aws.service_bridge(
-            r.get("attributes", {}), r.get("name", ""), r.get("type", "")
+            r.get("attributes", {}), r.get("name", ""),
+            r.get("type", ""), format=Format.XLSX
         )
         result += dst
         result += "\n"
 
     output(file=args.file, output=args.output, format=args.format, data=result)
+
+    logger.info(f"end tf-doc file: {args.file}")
 
 
 def test_main():

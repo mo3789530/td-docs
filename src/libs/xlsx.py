@@ -7,7 +7,7 @@ class ExelWriter:
         self.workbook = openpyxl.Workbook()
 
     def save_workbook(self, name):
-        path = "" + "/" + name + ".xlsx"
+        path = "" + "./" + name + ".xlsx"
         self.workbook.save(path)
 
     def create_sheet(self, name):
@@ -21,14 +21,14 @@ class ExelWriter:
         except:
             return False
 
-    def write_sheet(self, name, dic):
-        if self.is_created_sheet(name) == False:
-            self.workbook.create_sheet(title=name)
-        sheet = self.workbook[name]
-        for key, value in dic.items():
-            sheet[key] = value
+    # def write_sheet(self, name, dic):
+    #     if self.is_created_sheet(name) == False:
+    #         self.workbook.create_sheet(title=name)
+    #     sheet = self.workbook[name]
+    #     for key, value in dic.items():
+    #         sheet[key] = value
 
-    def add_sheet(self, name, dic):
+    def write_sheet(self, name, dic):
         index = 0
         if self.is_created_sheet(name) == False:
             self.workbook.create_sheet(title=name)

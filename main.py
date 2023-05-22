@@ -1,15 +1,11 @@
 import argparse
 import json
-import re
+
 from logging import config, getLogger
-from typing import Optional
 from src.libs.s3 import get_list_buckets_with_prefix
 
-from src.libs.md import is_exist_md, write_md
 from src.service.aws import AWSService
 from src.provider.terraform.state import State
-from src.provider.terraform.tf_resource import Resources
-from src.libs.html import md_to_html, save
 from src.template.format import Format
 
 logger = getLogger(__name__)
@@ -36,7 +32,7 @@ def main(args):
 
     aws = AWSService()
     result = ""
-    aws.service_bridge(data, Format.MD, filename="aaa")
+    aws.service_bridge(data, Format.MD, filename=args.file)
     # for d in data:
     #     logger.info(d)
     #     r = Resources().parse(d)

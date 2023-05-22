@@ -35,7 +35,7 @@ class AWSService():
         if format == Format.HTML:
             pass
         elif format == Format.XLSX:
-            self.__create_xlsx(data=res, name="aaa")
+            self.__create_xlsx(data=res, name=filename)
         else:
             self.__create_markdown(data=res, name=filename)
 
@@ -46,7 +46,7 @@ class AWSService():
             dst += pretty_markdwon(MarkdownTemplateCommon().create_markdown_facade(data=d, common_type=d['type']))
             dst += "\n"
         
-        self.output(file=name, format='', data=dst)
+        self.output(file=name, format='md', data=dst)
 
 
     def output(self, file: str, format: Optional[str], data: str):
@@ -62,18 +62,8 @@ class AWSService():
         else:
             write_md(output=output, dst=data)
 
-    def __aws_common_adapter(self, dic: list, name: str, aws_type: str, format: Format) -> str:
-        data = CommonParser().parser(json_data=dic, type_str=aws_type)
-        if type(data) != dict:
-            raise Exception("Error parsed data type")
-
-        print(str(format))
-        # TODO support out format 
-       
-        return pretty_markdwon(MarkdownTemplateCommon().create_markdown_facade(data=data, name=name, common_type=aws_type))
-
     def __create_xlsx(self, data: list, name: str) -> str:
         xlsx = ExelWriter()
-        xlsx.write_sheet(dic=data, name=name)
-        xlsx.save_workbook("aaa")
-        return "aaa.xlsx"
+        for d in data:
+            xlsx.write_sheet(dic=d, name=d['type'])
+        xlsx.save_workbook(re.sub(".json", "", name))

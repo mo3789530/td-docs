@@ -4,3 +4,5 @@ log.txt
 tests/test.md
 tests/test.tfstate.md
 tests/test.tfstate.html
+.DS_Store
+tests/test.xlsx

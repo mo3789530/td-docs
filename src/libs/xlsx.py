@@ -33,7 +33,10 @@ class ExelWriter:
         if self.is_created_sheet(name) == False:
             self.workbook.create_sheet(title=name)
         sheet = self.workbook[name]
-        index = sheet.max_row + 1
+        print(sheet.max_row)
+        index = sheet.max_row + 2 if sheet.max_row > 2 else sheet.max_row
+        print(index)
         for key, value in dic.items():
             sheet.cell(row=index, column=1).value = key
-            sheet.cell(row=index, column=2).value = value
+            sheet.cell(row=index, column=2).value = str(value)
+            index += 1

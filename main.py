@@ -32,7 +32,7 @@ def main(args):
 
     aws = AWSService()
     result = ""
-    aws.service_bridge(data, Format.MD, filename=args.file)
+    aws.service_bridge(data, Format.XLSX, filename=args.file)
     # for d in data:
     #     logger.info(d)
     #     r = Resources().parse(d)

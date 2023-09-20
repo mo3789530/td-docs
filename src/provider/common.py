@@ -1,5 +1,6 @@
 import json
 from logging import getLogger
+from multiprocessing.spawn import prepare
 
 from src.libs.pretty import pretty_json
 
@@ -10,11 +11,15 @@ class CommonParser:
     def __init__(self) -> None:
         pass
 
-    def parser(self, json_data: dict, type_str: str):
+    def parser(self, json_data: dict, type_str: str, pretty: bool):
         data = {}
         for k in json_data.keys():
-            v = self.format(k, json_data[k])
-            data[k] = v if v != "" else "None"
+            if pretty:
+                v = self.format(k, json_data[k])
+                data[k] = v if v != "" else "None"
+            else:
+                data[k] = json_data[k]
+        data["type"] = type_str
         return data
 
     def format(self, key: str, data: any):

@@ -1,0 +1,148 @@
+@startuml
+' https://github.com/awslabs/aws-icons-for-plantuml
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v14.0/dist
+!include AWSPuml/AWSCommon.puml
+!include AWSPuml/General/Users.puml
+!include AWSPuml/Groups/AWSCloud.puml
+!include AWSPuml/Groups/Generic.puml
+!include AWSPuml/Groups/GenericAlt.puml
+!include AWSPuml/NetworkingContentDelivery/CloudFront.puml
+!include AWSPuml/Database/DynamoDB.puml
+!include AWSPuml/SecurityIdentityCompliance/Cognito.puml
+!include AWSPuml/Compute/LambdaLambdaFunction.puml
+!include AWSPuml/Storage/SimpleStorageService.puml
+!include AWSPuml/ApplicationIntegration/APIGateway.puml
+!include AWSPuml/ApplicationIntegration/AppSync.puml
+!include AWSPuml/FrontEndWebMobile/Amplify.puml
+!include AWSPuml/Analytics/Athena.puml
+!include AWSPuml/CloudFinancialManagement/CostandUsageReport.puml
+!include AWSPuml/DeveloperTools/ToolsandSDKs.puml
+!include AWSPuml/ManagementGovernance/Config.puml
+!include AWSPuml/Groups/VPC.puml
+!include AWSPuml/Groups/PrivateSubnet.puml
+!include AWSPuml/Groups/PublicSubnet.puml
+!include AWSPuml/Database/Neptune.puml
+!include AWSPuml/Analytics/OpenSearchService.puml
+!include AWSPuml/Containers/ElasticContainerService.puml
+!include AWSPuml/Containers/Fargate.puml
+!include AWSPuml/Containers/ElasticContainerRegistry.puml
+!include AWSPuml/DeveloperTools/CodePipeline.puml
+!include AWSPuml/DeveloperTools/CodeBuild.puml
+!include AWSPuml/Containers/ElasticContainerRegistryImage.puml
+!include AWSPuml/AWSSimplified.puml
+!include AWSPuml/NetworkingContentDelivery/ElasticLoadBalancingApplicationLoadBalancer.puml
+!include AWSPuml/Analytics/OpenSearchService.puml
+!include AWSPuml/Database/Aurora.puml
+
+top to bottom direction
+title test
+
+skinparam shadowing false
+hide stereotype
+skinparam linetype ortho
+skinparam rectangle {
+    BackgroundColor AWS_BG_COLOR
+    BorderColor transparent
+}
+
+!procedure $stepnum($number) 
+<back:royalblue><color:white><b> $number </b></color></back>
+!endprocedure
+
+rectangle "$UsersIMG()\nUser" as users
+AWSCloudGroup(cloud){
+  rectangle "<font color=white>right" as right {
+    VPCGroup(vpc,VPC){
+      PrivateSubnetGroup(subnet1,PrivateSubnet){
+        GenericGroup(components6,Component) #Transparent {
+          rectangle "$ElasticContainerServiceIMG()\nAmazon Elastic\nContainer Service" as ecs #Transparent
+          rectangle "$FargateIMG()\nAWS Fargate" as fargate #Transparent
+          'RDS
+          rectangle "$AuroraIMG()\nAWS Aurora" as aurora #Transparent
+        }
+      }
+      PublicSubnetGroup(subnet2,PublicSubnet){
+        GenericGroup(components8,Component) #Transparent {
+        ' ALB
+          rectangle "$ElasticLoadBalancingApplicationLoadBalancerIMG()\n ALB" as alb
+        }
+      }
+      GenericGroup(components7,Common) #Transparent {
+        rectangle "$ElasticContainerRegistryImageIMG()\n ECR" as container
+        ' OpenSearch
+        rectangle "$OpenSearchServiceIMG()\n opensearch" as opensearch
+      }
+    }
+    rectangle "<font color=white>right_down" as right_down {
+      rectangle "<font color=white>develop" as components3 {
+        rectangle "$ToolsandSDKsIMG()\nAWS SDK" as sdk
+        rectangle "$ConfigIMG()\nAWS Config" as config
+        rectangle "$DynamoDBIMG()\nAmazon DynamoDB\n" as dynamodb
+        rectangle "$CognitoIMG()\nAmazon Cognito" as cognito
+        rectangle "$LambdaLambdaFunctionIMG()\nAWS Lambda\n Edge" as lambda2
+      }
+    }
+
+  }
+  rectangle "<font color=white>left" as left {
+    GenericGroup(components1,WebUIComponents){
+      rectangle "$LambdaLambdaFunctionIMG()\nAWS Lambda\n Edge" as lambdaedge
+      rectangle "$SimpleStorageServiceIMG()\nAmazon S3\nFrontEnd" as s31
+      rectangle "$CloudFrontIMG()\nAmazon CloudFront" as cloudfront
+    }
+  }
+}
+
+' '# オブジェクト同士の接続
+' vpc-[hidden]r-components7
+' components4-[hidden]d-vpc
+' components5-[hidden]d-components6
+
+' '# ユーザアクセス
+cloudfront<-l-users
+
+' '# ウェブUIコンポーネント
+cloudfront-r->s31
+cloudfront-r->lambdaedge
+
+cloudfront-r->alb
+alb-r->ecs
+ecs->aurora
+
+
+' '# ストレージ管理コンポーネント
+' amplify<-r->s32: $stepnum("3")
+
+' '# API Gateway、SDK、Config
+' apigateway2-[hidden]d-sdk
+' sdk-[hidden]d-config
+' apigateway2-r->lambda4
+
+' '# コストコンポーネント
+' lambda2-r->athena: $stepnum("9")
+' athena-r->s33: $stepnum("10")
+' cost-l->s33: $stepnum("11")
+' cost-[hidden]r-s34
+' lambda2-r->s34: $stepnum("12")
+
+' '# データコンポーネント
+' lambda3<-r->neptune: $stepnum("7")
+' lambda3-[hidden]d-lambda4
+' lambda4<-r->opensearch: $stepnum("8")
+' neptune-[hidden]d-opensearch
+
+' '# 検出コンポーネント
+' ecs-d->fargate: $stepnum("15")
+' ecs-d->ecr
+' fargate-[hidden]r-ecr
+' fargate-l->apigateway2: $stepnum("17")
+' fargate-l->sdk: $stepnum("16")
+' fargate-l->config
+
+' '# イメージデプロイコンポーネント
+' codepipeline-u->s35
+' codepipeline-d->codebuild: $stepnum("13")
+' codebuild-d->container
+' container-d->ecr: $stepnum("14")
+
+@enduml

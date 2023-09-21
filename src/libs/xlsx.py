@@ -1,7 +1,7 @@
 # create write csv or excel format
 import openpyxl
 
-class ExelWriter:
+class ExcelWriter:
     workbook = None
     def __init__(self) -> None:
         self.workbook = openpyxl.Workbook()

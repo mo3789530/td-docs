@@ -44,7 +44,7 @@ class SecurityGroup:
             dependencies: pretty_array(json.get(dependencies, []))
         }, sg_type
 
-    # unknow type
+    # unknown type
     def unknown_type(self, json: dict, sg_type: str) -> tuple[dict, str]:
         logger.warning(f"{sg_type} is not defined")
         return json, None

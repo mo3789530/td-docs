@@ -258,7 +258,7 @@ class Rds:
             dependencies: pretty_array(json.get(dependencies, []))
         }
 
-    # unknow type
+    # unknown type
 
     def unknown_type(self, json: dict, rds_type: str) -> dict:
         logger.warning(f"{rds_type} is not defined")

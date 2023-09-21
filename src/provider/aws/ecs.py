@@ -164,7 +164,7 @@ class Ecs:
             dependencies:             pretty_array(json.get(dependencies, []))
         }
 
-    # unknow type
+    # unknown type
     def unknown_type(self, json: dict, ecs_type: str):
         logger.warning(f"{ecs_type} is not defined")
         # raise Exception(f"{iam_type} is not defined in iam type")

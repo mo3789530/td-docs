@@ -1,10 +1,10 @@
 from logging import getLogger
 
-from src.libs.pretty import pretty_markdwon
+from src.libs.pretty import pretty_markdown
 from src.provider.common import CommonParser
 from src.template.awa.common import MarkdownTemplateCommon
 from src.template.format import Format
-from src.libs.xlsx import ExelWriter
+from src.libs.xlsx import ExcelWriter
 
 
 logger = getLogger("src").getChild(__name__)
@@ -36,7 +36,7 @@ class AWSService():
     def __create_markdown(self, data: list, name: str) -> str:
         dst = ""
         for d in data:
-            dst += pretty_markdwon(MarkdownTemplateCommon().create_markdown_facade(data=d, common_type=d['type']))
+            dst += pretty_markdown(MarkdownTemplateCommon().create_markdown_facade(data=d, common_type=d['type']))
             dst += "\n"
         
         output(file=args.file, output=args.output, format=args.format, data=result)
@@ -66,10 +66,10 @@ class AWSService():
         print(str(format))
         # TODO support out format 
        
-        return pretty_markdwon(MarkdownTemplateCommon().create_markdown_facade(data=data, name=name, common_type=aws_type))
+        return pretty_markdown(MarkdownTemplateCommon().create_markdown_facade(data=data, name=name, common_type=aws_type))
 
     def __create_xlsx(self, data: list, name: str) -> str:
-        xlsx = ExelWriter()
+        xlsx  = ExcelWriter()
         xlsx.write_sheet(dic=data, name=name)
         xlsx.save_workbook("aaa")
         return "aaa.xlsx"

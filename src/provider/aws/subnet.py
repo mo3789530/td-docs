@@ -48,7 +48,7 @@ class Subnet:
             dependencies: pretty_json(json.get(dependencies, []))
         }, subnet_type
 
-    # unknow type
+    # unknown type
     def unknown_type(self, json: dict, subnet_type: str) -> tuple[dict, str]:
         logger.warning(f"{subnet_type} is not defined")
         return (json, None)

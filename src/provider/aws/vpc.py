@@ -55,7 +55,7 @@ class Vpc:
 
         }, vpc_type)
 
-    # unknow type
+    # unknown type
     def unknown_type(self, json: dict, vpc_type: str):
         logger.warning(f"{vpc_type} is not defined")
         return (json, vpc_type)

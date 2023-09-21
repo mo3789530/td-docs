@@ -6,7 +6,7 @@ logger = getLogger("src").getChild(__name__)  # type: ignore
 
 def is_exist_md(file_name: str):
     if os.path.isfile(file_name) == True:
-        logger.warn(f"Deleteing exist file: {file_name} ")
+        logger.warn(f"Deleting exist file: {file_name} ")
         os.remove(file_name)
 
 

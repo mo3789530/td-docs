@@ -174,7 +174,7 @@ class Iam:
             dependencies:          pretty_array(json.get(dependencies, []))
         }
 
-    # unknow type
+    # unknown type
 
     def unknown_type(self, json: dict, iam_type: str):
         logger.warning(f"{iam_type} is not defined")

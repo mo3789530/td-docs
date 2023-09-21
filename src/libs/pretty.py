@@ -13,7 +13,7 @@ def pretty_json(txt) -> str:
     return re.sub("\n", "<br>", txt)
 
 
-def pretty_markdwon(txt: str) -> str:
+def pretty_markdown(txt: str) -> str:
     return textwrap.dedent(txt).strip()
 
 

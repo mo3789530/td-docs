@@ -279,7 +279,7 @@ class Lb:
             dependencies: pretty_array(json.get(dependencies, []))
         }
 
-    # unknow type
+    # unknown type
     def unknown_type(self, json: dict, lb_type: str):
         logger.warning(f"{lb_type} is not defined")
         return json
